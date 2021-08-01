@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis", "DiplomaAnalysis\DiplomaAnalysis.csproj", "{5593D125-0B20-4CC5-A7EE-C8A7667D41F3}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Models", "DiplomaAnalysis.Models\DiplomaAnalysis.Models.csproj", "{09F3520E-700A-4E6F-B672-F9C2437F6613}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Services.References", "DiplomaAnalysis.Services.References\DiplomaAnalysis.Services.References.csproj", "{EE215C04-639A-4E0D-AAC6-7D44D3791CB5}"
@@ -13,6 +15,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5593D125-0B20-4CC5-A7EE-C8A7667D41F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5593D125-0B20-4CC5-A7EE-C8A7667D41F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5593D125-0B20-4CC5-A7EE-C8A7667D41F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5593D125-0B20-4CC5-A7EE-C8A7667D41F3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{09F3520E-700A-4E6F-B672-F9C2437F6613}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{09F3520E-700A-4E6F-B672-F9C2437F6613}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09F3520E-700A-4E6F-B672-F9C2437F6613}.Release|Any CPU.ActiveCfg = Release|Any CPU
