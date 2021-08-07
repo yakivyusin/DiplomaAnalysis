@@ -13,6 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Services.La
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DiplomaAnalysis.FrontEnd", "DiplomaAnalysis.FrontEnd", "{FC7A6BB2-EF4C-4D8B-BBDA-7CFE4B23370B}"
 	ProjectSection(SolutionItems) = preProject
+		DiplomaAnalysis.FrontEnd\app.js = DiplomaAnalysis.FrontEnd\app.js
 		DiplomaAnalysis.FrontEnd\index.html = DiplomaAnalysis.FrontEnd\index.html
 		DiplomaAnalysis.FrontEnd\styles.css = DiplomaAnalysis.FrontEnd\styles.css
 	EndProjectSection
