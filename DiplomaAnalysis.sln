@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Models", "D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Services.References", "DiplomaAnalysis.Services.References\DiplomaAnalysis.Services.References.csproj", "{EE215C04-639A-4E0D-AAC6-7D44D3791CB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomaAnalysis.Services.Layout", "DiplomaAnalysis.Services.Layout\DiplomaAnalysis.Services.Layout.csproj", "{304A1EE9-3CF8-4898-89C0-F1D96B735489}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Services.Layout", "DiplomaAnalysis.Services.Layout\DiplomaAnalysis.Services.Layout.csproj", "{304A1EE9-3CF8-4898-89C0-F1D96B735489}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DiplomaAnalysis.FrontEnd", "DiplomaAnalysis.FrontEnd", "{FC7A6BB2-EF4C-4D8B-BBDA-7CFE4B23370B}"
+	ProjectSection(SolutionItems) = preProject
+		DiplomaAnalysis.FrontEnd\index.html = DiplomaAnalysis.FrontEnd\index.html
+		DiplomaAnalysis.FrontEnd\styles.css = DiplomaAnalysis.FrontEnd\styles.css
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

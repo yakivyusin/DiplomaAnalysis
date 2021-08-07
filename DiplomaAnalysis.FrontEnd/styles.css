@@ -1,0 +1,26 @@
+body {
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#drop-area {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 3px dashed #ccc;
+    border-radius: 20px;
+    width: 50vw;
+    height: 30vh;
+    margin: 35vh auto 0 auto;
+    font-family: sans-serif;
+}
+
+#form {
+    text-align: center;
+    margin-top: 13vh;
+    font-size: 1.5em;
+}
+
+#file {
+    display: none;
+}
