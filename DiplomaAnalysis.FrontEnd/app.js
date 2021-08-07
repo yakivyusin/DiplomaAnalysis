@@ -8,6 +8,7 @@ class App {
 
     constructor() {
         this.dropArea = document.getElementById('drop-area');
+        this.resultArea = document.getElementById('result-area');
         this.registerEventHandlers();
     }
 
@@ -47,9 +48,15 @@ class App {
     }
 
     handleFiles(files) {
+        if (files.length === 0) {
+            return;
+        }
+
         let file = files[0];
         let formData = new FormData();
         formData.append('file', file);
+
+        this.resultArea.innerHTML = '';
 
         App.apiServices.forEach(async service => {
             try {
@@ -62,17 +69,21 @@ class App {
                     app.processServiceResponse(await response.json());
                 }
                 else {
-                    app.processServiceResponse([{ Code: 'ERR01', IsError: true }]);
+                    app.processServiceResponse([{ code: response.status !== 400 ? 'ERR01' : 'ERR02', isError: true }]);
                 }
             }
             catch {
-                app.processServiceResponse([{ Code: 'ERR01', IsError: true }]);
+                app.processServiceResponse([{ code: 'ERR01', isError: true }]);
             }
         });
     }
 
     processServiceResponse(data) {
-        console.log(data);
+        data.forEach(message => {
+            let ticket = ResultTicketFactory.create(message.code, message.extraMessage, message.isError);
+
+            app.resultArea.appendChild(ticket);
+        });
     }
 }
 

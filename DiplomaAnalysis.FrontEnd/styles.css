@@ -28,3 +28,36 @@ body {
 #file {
     display: none;
 }
+
+#result-area {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.result-ticket {
+    border: 3px dashed #ccc;
+    border-radius: 20px;
+    width: 300px;
+    font-family: sans-serif;
+    margin: 20px;
+    padding: 5px;
+}
+
+.result-ticket.error {
+    background-color: rgba(255, 144, 144, 0.7);
+    border-color: red;
+}
+
+.result-ticket.warning {
+    background-color: rgba(255, 255, 86, 0.7);
+    border-color: yellow;
+}
+
+.result-ticket .code {
+    font-weight: bold;
+}
+
+#result-ticket-prefab {
+    display: none;
+}

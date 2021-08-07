@@ -9,10 +9,13 @@
 <body>
     <div id="drop-area">
         <form id="form">
-            <input type="file" id="file" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" onchange="app.handleFiles(this.files)">
+            <input type="file" id="file" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" oninput="app.handleFiles(this.files)">
             <label for="file"><strong>Виберіть .docx файл</strong> або помістіть його сюди.</label>
         </form>
     </div>
+    <div id="result-area">
+    </div>
+    <script src="resultTicketFactory.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
