@@ -66,3 +66,12 @@ body {
 .result-ticket .extra {
     font-style: italic;
 }
+
+#download-button {
+    position: fixed;
+    top: 10px;
+    width: 48px;
+    height: 48px;
+    background-image: url("download.png");
+    background-size: cover;
+}

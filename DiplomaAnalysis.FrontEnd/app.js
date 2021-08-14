@@ -10,6 +10,7 @@ class App {
     constructor() {
         this.dropArea = document.getElementById('drop-area');
         this.resultArea = document.getElementById('result-area');
+        this.results = [];
         this.registerEventHandlers();
     }
 
@@ -58,6 +59,7 @@ class App {
         formData.append('file', file);
 
         this.resultArea.innerHTML = '';
+        this.results = [];
 
         App.apiServices.forEach(async service => {
             try {
@@ -81,11 +83,18 @@ class App {
     }
 
     processServiceResponse(data) {
+        this.results = this.results.concat(data);
+
         data.forEach(message => {
             let ticket = ResultTicketFactory.create(message.code, message.extraMessage, message.isError);
 
             app.resultArea.appendChild(ticket);
         });
+    }
+
+    saveResultsToFile() {
+        var blob = new Blob([JSON.stringify(this.results, null, 4)], { type: "text/plain;charset=utf-8" });
+        saveAs(blob, "results.json");
     }
 }
 
