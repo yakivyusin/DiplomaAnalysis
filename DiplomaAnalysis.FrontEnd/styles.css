@@ -58,6 +58,6 @@ body {
     font-weight: bold;
 }
 
-#result-ticket-prefab {
-    display: none;
+.result-ticket .extra {
+    font-style: italic;
 }

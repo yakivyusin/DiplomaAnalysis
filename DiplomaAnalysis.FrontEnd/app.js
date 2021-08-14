@@ -3,7 +3,8 @@ class App {
     static apiServices =
         [
             '/api/Layout',
-            '/api/References'
+            '/api/References',
+            '/api/Orthography2019'
         ];
 
     constructor() {
