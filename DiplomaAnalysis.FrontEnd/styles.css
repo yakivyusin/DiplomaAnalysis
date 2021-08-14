@@ -54,6 +54,11 @@ body {
     border-color: yellow;
 }
 
+.result-ticket.success {
+    background-color: rgba(100, 255, 100, 0.7);
+    border-color: limegreen;
+}
+
 .result-ticket .code {
     font-weight: bold;
 }

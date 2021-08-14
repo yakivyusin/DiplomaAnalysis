@@ -67,7 +67,8 @@ class App {
                 });
 
                 if (response.ok) {
-                    app.processServiceResponse(await response.json());
+                    let json = await response.json();
+                    app.processServiceResponse(json.length === 0 ? [{ code: 'SUCCESS01' }] : json);
                 }
                 else {
                     app.processServiceResponse([{ code: response.status !== 400 ? 'ERR01' : 'ERR02', isError: true }]);
