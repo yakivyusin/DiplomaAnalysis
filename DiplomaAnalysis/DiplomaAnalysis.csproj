@@ -8,6 +8,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DiplomaAnalysis.Services.Layout\DiplomaAnalysis.Services.Layout.csproj" />
+    <ProjectReference Include="..\DiplomaAnalysis.Services.Orthography2019\DiplomaAnalysis.Services.Orthography2019.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.References\DiplomaAnalysis.Services.References.csproj" />
   </ItemGroup>
   <ItemGroup>
