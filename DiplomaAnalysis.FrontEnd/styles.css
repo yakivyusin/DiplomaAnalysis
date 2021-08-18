@@ -39,6 +39,7 @@ body {
     border: 3px dashed #ccc;
     border-radius: 20px;
     width: 300px;
+    height: fit-content;
     font-family: sans-serif;
     margin: 20px;
     padding: 5px;
