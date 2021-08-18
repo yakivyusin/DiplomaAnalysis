@@ -6,5 +6,6 @@
         public const string PageSize = "LAY01";
         public const string PageMargin = "LAY02";
         public const string Orthography2019 = "ORT01";
+        public const string Runglish = "REN01";
     }
 }

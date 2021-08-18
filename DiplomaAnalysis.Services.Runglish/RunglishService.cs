@@ -8,13 +8,13 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace DiplomaAnalysis.Services.Orthography2019
+namespace DiplomaAnalysis.Services.Runglish
 {
-    public class OrthographyService : IDisposable
+    public class RunglishService : IDisposable
     {
         private readonly WordprocessingDocument _document;
 
-        public OrthographyService(Stream data)
+        public RunglishService(Stream data)
         {
             _document = WordprocessingDocument.Open(data, false);
         }
@@ -42,9 +42,9 @@ namespace DiplomaAnalysis.Services.Orthography2019
                 .SelectMany(x => regex.Matches(x.Text).Select(m => new { Match = m, x.Text }))
                 .Select(x => new MessageDto
                 {
-                    Code = AnalysisCode.Orthography2019,
+                    Code = AnalysisCode.Runglish,
                     IsError = true,
-                    ExtraMessage = x.Match.GetMatchTextWithContext(x.Text, 20)
+                    ExtraMessage = x.Match.GetMatchTextWithContext(x.Text, 15)
                 });
         }
 
