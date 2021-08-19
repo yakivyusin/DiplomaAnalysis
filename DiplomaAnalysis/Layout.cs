@@ -16,26 +16,11 @@ namespace DiplomaAnalysis
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            if (req.Form.Files.Count == 0)
-            {
-                log.LogInformation("Request without files");
-                return new BadRequestResult();
-            }
-
-            var file = req.Form.Files[0];
-
-            try
+            return await RunService.Run(file =>
             {
                 using var service = new LayoutService(file.OpenReadStream());
-                var result = service.Analyze().ToList();
-
-                return new OkObjectResult(result);
-            }
-            catch
-            {
-                log.LogWarning("Incoming file parsing error");
-                return new BadRequestResult();
-            }
+                return service.Analyze().ToList();
+            }, req, log);
         }
     }
 }
