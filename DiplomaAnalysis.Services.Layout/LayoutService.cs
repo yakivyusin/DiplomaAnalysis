@@ -11,8 +11,8 @@ namespace DiplomaAnalysis.Services.Layout
 {
     public class LayoutService : IDisposable
     {
-        private static readonly int Width = (int)Math.Round(21.0 * 1440 / 2.54);
-        private static readonly int Height = (int)Math.Round(29.7 * 1440 / 2.54);
+        private static readonly int ShortSize = (int)Math.Round(21.0 * 1440 / 2.54);
+        private static readonly int LongSize = (int)Math.Round(29.7 * 1440 / 2.54);
         private static readonly int LeftMargin = (int)Math.Round(3.0 * 1440 / 2.54);
         private static readonly int OtherMargins = (int)Math.Round(2.0 * 1440 / 2.54);
         private static readonly int AllowedDifference = 10;
@@ -60,9 +60,18 @@ namespace DiplomaAnalysis.Services.Layout
 
         private bool IsPageSizeCorrect(PageSize size)
         {
-            return
-                Math.Abs(size.Width - Width) <= AllowedDifference &&
-                Math.Abs(size.Height - Height) <= AllowedDifference;
+            if (size.Orient == null || size.Orient.Value == PageOrientationValues.Portrait)
+            {
+                return
+                    Math.Abs(size.Width - ShortSize) <= AllowedDifference &&
+                    Math.Abs(size.Height - LongSize) <= AllowedDifference;
+            }
+            else
+            {
+                return
+                    Math.Abs(size.Width - LongSize) <= AllowedDifference &&
+                    Math.Abs(size.Height - ShortSize) <= AllowedDifference;
+            }
         }
 
         private bool IsPageMarginCorrect(PageMargin margin)
