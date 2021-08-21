@@ -12,34 +12,17 @@ class ResultTicketFactory {
     };
 
     static create(code, extra, isError) {
-        let div = document.createElement('div');
+        let template = document.importNode(document.getElementById('ticket-template'), true);
+        let div = template.content.querySelector('div');
+        let codeParagraph = template.content.querySelector('.code');
+        let extraParagraph = template.content.querySelector('.extra');
+        let descriptionParagraph = template.content.querySelector('.description');
 
-        if (code === 'SUCCESS01') {
-            div.classList.add('result-ticket', 'success');
-        }
-        else {
-            div.classList.add('result-ticket', isError ? 'error' : 'warning');
-        }
-
-        let codeParagraph = document.createElement('p');
-        codeParagraph.classList.add('code');
+        div.classList.add(code === 'SUCCESS01' ? 'success' : (isError ? 'error' : 'warning'));
         codeParagraph.innerHTML = code;
-
-        let extraParagraph = document.createElement('p');
-        extraParagraph.classList.add('extra');
-
-        if (extra) {
-            extraParagraph.innerHTML = extra;
-        }
-
-        let descriptionParagraph = document.createElement('p');
-        descriptionParagraph.classList.add('description');
+        extraParagraph.innerHTML = extra || '';
         descriptionParagraph.innerHTML = this.descriptions[code];
 
-        div.appendChild(codeParagraph);
-        div.appendChild(extraParagraph);
-        div.appendChild(descriptionParagraph);
-
-        return div;
+        return template.content;
     }
 }
