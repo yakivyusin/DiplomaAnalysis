@@ -21,25 +21,19 @@ namespace DiplomaAnalysis.Services.WordingMisuse
 
         public IEnumerable<MessageDto> Analyze()
         {
-            var texts = _document
-                .MainDocumentPart
-                .Document
-                .Descendants<Text>()
-                .ToList();
-
             return Properties
                 .Resources
                 .Terms
                 .Split('\n', StringSplitOptions.RemoveEmptyEntries)
-                .SelectMany(x => Analyze(texts, x));
+                .SelectMany(x => Analyze(_document.AllParagraphs(), x));
         }
 
-        private IEnumerable<MessageDto> Analyze(IEnumerable<Text> texts, string pattern)
+        private IEnumerable<MessageDto> Analyze(IEnumerable<string> texts, string pattern)
         {
             var regex = new Regex(pattern, RegexOptions.IgnoreCase);
 
             return texts
-                .SelectMany(x => regex.Matches(x.Text).Select(m => new { Match = m, x.Text }))
+                .SelectMany(x => regex.Matches(x).Select(m => new { Match = m, Text = x }))
                 .Select(x => new MessageDto
                 {
                     Code = AnalysisCode.WordingMisuse,
