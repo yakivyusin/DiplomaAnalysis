@@ -5,7 +5,8 @@ class App {
             '/api/Layout',
             '/api/References',
             '/api/Orthography2019',
-            '/api/Runglish'
+            '/api/Runglish',
+            '/api/WordingMisuse'
         ];
 
     constructor() {
