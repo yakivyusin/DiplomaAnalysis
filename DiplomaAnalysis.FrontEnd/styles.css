@@ -68,6 +68,11 @@ body {
     font-style: italic;
 }
 
+.result-ticket .extra:not(:empty):before,
+.result-ticket .extra:not(:empty):after {
+    content: "\"";
+}
+
 #download-button {
     position: fixed;
     top: 10px;
