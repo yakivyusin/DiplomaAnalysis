@@ -1,0 +1,21 @@
+name: Build and Deploy FrontEnd
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+
+      - name: Patch API root
+        run: |
+          sed -i 's+http://localhost:7071+https://diplomaanalysis.azurewebsites.net+g' DiplomaAnalysis.FrontEnd/app.js
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: DiplomaAnalysis.FrontEnd
