@@ -1,0 +1,83 @@
+body {
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#drop-area {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 3px dashed #ccc;
+    border-radius: 20px;
+    width: 50vw;
+    height: 30vh;
+    margin: 35vh auto 0 auto;
+    font-family: sans-serif;
+}
+
+#drop-area.highlight {
+    border-color: blue;
+}
+
+#form {
+    text-align: center;
+    margin-top: 13vh;
+    font-size: 1.5em;
+}
+
+#file {
+    display: none;
+}
+
+#result-area {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.result-ticket {
+    border: 3px dashed #ccc;
+    border-radius: 20px;
+    width: 300px;
+    height: fit-content;
+    font-family: sans-serif;
+    margin: 20px;
+    padding: 5px;
+}
+
+.result-ticket.error {
+    background-color: rgba(255, 144, 144, 0.7);
+    border-color: red;
+}
+
+.result-ticket.warning {
+    background-color: rgba(255, 255, 86, 0.7);
+    border-color: yellow;
+}
+
+.result-ticket.success {
+    background-color: rgba(100, 255, 100, 0.7);
+    border-color: limegreen;
+}
+
+.result-ticket .code {
+    font-weight: bold;
+}
+
+.result-ticket .extra {
+    font-style: italic;
+}
+
+.result-ticket .extra:not(:empty):before,
+.result-ticket .extra:not(:empty):after {
+    content: "\"";
+}
+
+#download-button {
+    position: fixed;
+    top: 10px;
+    width: 48px;
+    height: 48px;
+    background-image: url("download.png");
+    background-size: cover;
+}

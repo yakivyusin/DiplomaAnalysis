@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Diploma Analysis</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div id="download-button" title="Зберігти результати" onclick="app.saveResultsToFile()">
+    </div>
+    <div id="drop-area">
+        <form id="form">
+            <input type="file" id="file" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" oninput="app.handleFiles(this.files)">
+            <label for="file"><strong>Виберіть .docx файл</strong> або помістіть його сюди.</label>
+        </form>
+    </div>
+    <div id="result-area">
+    </div>
+    <template id="ticket-template">
+        <div class="result-ticket">
+            <p class="code"></p>
+            <p class="extra"></p>
+            <p class="description"></p>
+        </div>
+    </template>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.4/FileSaver.min.js"></script>
+    <script src="resultTicketFactory.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
