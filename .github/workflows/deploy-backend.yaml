@@ -6,7 +6,7 @@ on:
 env:
   AZURE_FUNCTIONAPP_NAME: diplomaanalysis
   AZURE_FUNCTIONAPP_PACKAGE_PATH: 'DiplomaAnalysis'
-  DOTNET_VERSION: '3.1.x'
+  DOTNET_VERSION: '6.0.x'
 jobs:
   build-and-deploy:
     runs-on: windows-latest
