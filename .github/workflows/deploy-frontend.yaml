@@ -15,7 +15,7 @@ jobs:
           sed -i 's+http://localhost:7071+https://diplomaanalysis.azurewebsites.net+g' DiplomaAnalysis.FrontEnd/app.js
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.3.4
+        uses: JamesIves/github-pages-deploy-action@v4.4.0
         with:
           branch: gh-pages
           folder: DiplomaAnalysis.FrontEnd
