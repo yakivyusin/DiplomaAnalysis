@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DiplomaAnalysis.Common\DiplomaAnalysis.Common.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Models\DiplomaAnalysis.Models.csproj" />
   </ItemGroup>
 
