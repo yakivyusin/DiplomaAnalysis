@@ -12,6 +12,7 @@ class App {
     constructor() {
         this.dropArea = document.getElementById('drop-area');
         this.resultArea = document.getElementById('result-area');
+        this.fileInput = document.getElementById('file');
         this.results = [];
         this.registerEventHandlers();
     }
@@ -82,6 +83,8 @@ class App {
                 app.processServiceResponse([{ code: 'ERR01', isError: true }]);
             }
         });
+
+        this.fileInput.value = null;
     }
 
     processServiceResponse(data) {
