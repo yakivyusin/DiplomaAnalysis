@@ -6,12 +6,14 @@ class App {
             '/api/References',
             '/api/Orthography2019',
             '/api/Runglish',
-            '/api/WordingMisuse'
+            '/api/WordingMisuse',
+            '/api/CharReplacement'
         ];
 
     constructor() {
         this.dropArea = document.getElementById('drop-area');
         this.resultArea = document.getElementById('result-area');
+        this.fileInput = document.getElementById('file');
         this.results = [];
         this.registerEventHandlers();
     }
@@ -82,6 +84,8 @@ class App {
                 app.processServiceResponse([{ code: 'ERR01', isError: true }]);
             }
         });
+
+        this.fileInput.value = null;
     }
 
     processServiceResponse(data) {

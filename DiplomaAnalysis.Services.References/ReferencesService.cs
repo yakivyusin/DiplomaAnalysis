@@ -1,9 +1,9 @@
-﻿using DiplomaAnalysis.Models;
+﻿using DiplomaAnalysis.Common;
+using DiplomaAnalysis.Models;
 using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
 using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -11,7 +11,8 @@ namespace DiplomaAnalysis.Services.References
 {
     public class ReferencesService : IDisposable
     {
-        private const string ReferencePattern = @"\[\d+\]";
+        private const string DstuReferencePattern = @"\[\d+\]";
+        private const string ApaReferencePattern = @"\(\p{L}.+, \d{4}[a-z]?\)";
         private readonly WordprocessingDocument _document;
 
         public ReferencesService(Stream data)
@@ -21,12 +22,12 @@ namespace DiplomaAnalysis.Services.References
 
         public IEnumerable<MessageDto> Analyze()
         {
-            var regex = new Regex(ReferencePattern);
+            var dstuRegex = new Regex(DstuReferencePattern, RegexOptions.Compiled);
+            var apaPattern = new Regex(ApaReferencePattern, RegexOptions.Compiled);
+
             var isAnyTextContainsReference = _document
-                .MainDocumentPart
-                .Document
-                .Descendants<Text>()
-                .Any(x => regex.IsMatch(x.Text));
+                .AllParagraphs()
+                .Any(x => dstuRegex.IsMatch(x) || apaPattern.IsMatch(x));
 
             if (isAnyTextContainsReference)
             {

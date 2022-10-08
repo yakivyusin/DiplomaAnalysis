@@ -8,5 +8,6 @@
         public const string Orthography2019 = "ORT01";
         public const string Runglish = "ORT02";
         public const string WordingMisuse = "ORT03";
+        public const string CharacterReplacement = "ORT04";
     }
 }
