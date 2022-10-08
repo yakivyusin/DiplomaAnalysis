@@ -81,3 +81,10 @@ body {
     background-image: url("download.png");
     background-size: cover;
 }
+
+#version-info {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-family: sans-serif;
+}
