@@ -19,7 +19,7 @@ namespace DiplomaAnalysis.Services.Runglish.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,7 +61,17 @@ namespace DiplomaAnalysis.Services.Runglish.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to імплементаці(?:я|ї|єю|й|ям)
+        ///нотифікаці(?:я|ї|єю|й|ям)
+        ///кастом[іи]заці(?:я|ї|єю|й|ям)
+        ///девайс
+        ///інпут
+        ///мануал
+        ///пагінаці(?:я|ї|єю|й|ям)
+        ///пат{1,2}ерн
+        ///чекбокс
+        ///десктоп
+        ///дефолт.
         /// </summary>
         internal static string Terms {
             get {

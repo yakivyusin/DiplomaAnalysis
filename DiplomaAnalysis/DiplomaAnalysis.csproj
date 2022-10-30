@@ -10,6 +10,7 @@
     <ProjectReference Include="..\DiplomaAnalysis.Services.CharReplacement\DiplomaAnalysis.Services.CharReplacement.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.Layout\DiplomaAnalysis.Services.Layout.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.Orthography2019\DiplomaAnalysis.Services.Orthography2019.csproj" />
+    <ProjectReference Include="..\DiplomaAnalysis.Services.Punctuation\DiplomaAnalysis.Services.Punctuation.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.References\DiplomaAnalysis.Services.References.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.Runglish\DiplomaAnalysis.Services.Runglish.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.WordingMisuse\DiplomaAnalysis.Services.WordingMisuse.csproj" />

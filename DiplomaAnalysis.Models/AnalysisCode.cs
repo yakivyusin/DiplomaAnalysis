@@ -9,5 +9,7 @@
         public const string Runglish = "ORT02";
         public const string WordingMisuse = "ORT03";
         public const string CharacterReplacement = "ORT04";
+        public const string PunctuationSpacing = "PNC01";
+        public const string Quotes = "PNC02";
     }
 }
