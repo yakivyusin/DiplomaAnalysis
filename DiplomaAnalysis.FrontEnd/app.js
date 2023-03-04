@@ -100,8 +100,24 @@ class App {
     }
 
     saveResultsToFile() {
-        var blob = new Blob([JSON.stringify(this.results, null, 4)], { type: "text/plain;charset=utf-8" });
-        saveAs(blob, "results.json");
+        let blob = new Blob([JSON.stringify(this.results, null, 4)], { type: 'text/plain;charset=utf-8' });
+        saveAs(blob, 'results.json');
+    }
+
+    loadResultsFromFile() {
+        this.resultArea.innerHTML = '';
+        this.results = [];
+
+        let input = document.createElement('input');
+        input.type = 'file';
+        input.onchange = async e => {
+            let file = e.target.files[0];
+            let json = JSON.parse(await file.text());
+
+            app.processServiceResponse(json.length === 0 ? [{ code: 'SUCCESS01' }] : json);
+        };
+
+        input.click();
     }
 }
 

@@ -83,3 +83,13 @@ body {
     right: 10px;
     font-family: sans-serif;
 }
+
+#upload-button {
+    position: fixed;
+    top: 10px;
+    left: 68px;
+    width: 48px;
+    height: 48px;
+    background-image: url("upload.png");
+    background-size: cover;
+}
