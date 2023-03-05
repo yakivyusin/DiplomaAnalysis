@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DiplomaAnalysis.FrontEnd", 
 	ProjectSection(SolutionItems) = preProject
 		DiplomaAnalysis.FrontEnd\app.js = DiplomaAnalysis.FrontEnd\app.js
 		DiplomaAnalysis.FrontEnd\index.html = DiplomaAnalysis.FrontEnd\index.html
+		DiplomaAnalysis.FrontEnd\loader.css = DiplomaAnalysis.FrontEnd\loader.css
 		DiplomaAnalysis.FrontEnd\resultTicketFactory.js = DiplomaAnalysis.FrontEnd\resultTicketFactory.js
 		DiplomaAnalysis.FrontEnd\styles.css = DiplomaAnalysis.FrontEnd\styles.css
 	EndProjectSection
@@ -29,7 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Services.Wo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Services.CharReplacement", "DiplomaAnalysis.Services.CharReplacement\DiplomaAnalysis.Services.CharReplacement.csproj", "{CF2D4F4A-1D53-4AD0-8B9E-95190F6B0C15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomaAnalysis.Services.Punctuation", "DiplomaAnalysis.Services.Punctuation\DiplomaAnalysis.Services.Punctuation.csproj", "{C0DEC713-1C41-4172-BC52-6B25393BC1EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Services.Punctuation", "DiplomaAnalysis.Services.Punctuation\DiplomaAnalysis.Services.Punctuation.csproj", "{C0DEC713-1C41-4172-BC52-6B25393BC1EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

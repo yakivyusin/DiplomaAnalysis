@@ -15,6 +15,7 @@ class App {
         this.dropArea = document.getElementById('drop-area');
         this.resultArea = document.getElementById('result-area');
         this.fileInput = document.getElementById('file');
+        this.loader = document.getElementById('loader');
         this.results = [];
         this.registerEventHandlers();
     }
@@ -65,6 +66,9 @@ class App {
 
         this.resultArea.innerHTML = '';
         this.results = [];
+        this.loader.style.display = 'block';
+
+        let responsesCount = 0;
 
         App.apiServices.forEach(async service => {
             try {
@@ -83,6 +87,10 @@ class App {
             }
             catch {
                 app.processServiceResponse([{ code: 'ERR01', isError: true }]);
+            }
+
+            if (++responsesCount == App.apiServices.length) {
+                this.loader.style.display = 'none';
             }
         });
 
