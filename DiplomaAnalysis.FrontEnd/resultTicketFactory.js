@@ -8,10 +8,10 @@ class ResultTicketFactory {
         'LAY02': 'Для більшості з документів ліве поле має становити 3 см, інші - по 2 см.',
         'ORT01': 'За <a href="https://bit.ly/3yqbzYg" target="_blank">новим правописом</a> треба писати: про<strong>є</strong>кт, а не проект; компонент "веб" разом з наступним словом, наприклад, <strong>веб</strong>сайт, а не веб сайт або веб-сайт.',
         'ORT02': 'Уникайте українсько-англійського суржику. Наприклад, не девайс, а пристрій; не нотифікація, а сповіщення.',
-        'ORT03': 'Можливе використання слова у неправильному контексті. Деталі див. за <a href="misuse.txt" target="_blank">посиланням.</a>',
+        'ORT03': 'Можливе використання слова у неправильному контексті. Деталі див. за <a href="misuse.txt" target="_blank">посиланням</a>.',
         'ORT04': 'Серед символів кирилиці знайдено символ латиниці або навпаки. Системою Unicheck це буде розцінено як підміна символів.',
         'PNC01': 'Перед більшістю пунктуаційних знаків пробіл не ставиться, а після - ставиться.',
-        'PNC02': 'Найбільш вживаними є лапки-ялинки «...», хоча правопис 2019-го року допускає використання і інших варіантів: “...”, „...“.'
+        'PNC02': 'Найбільш вживаними є лапки-ялинки «...», хоча <a href="http://bit.ly/3ZJPRKf" target="_blank">правопис 2019-го року</a> допускає використання і інших варіантів: “...”, „...“.'
     };
 
     static create(code, extra, isError) {
@@ -21,9 +21,14 @@ class ResultTicketFactory {
         let extraParagraph = template.content.querySelector('.extra');
         let descriptionParagraph = template.content.querySelector('.description');
 
+        extra = extra || '';
+        extra = extra.replace(/\[highlight\](.*)\[highlight\]/, (_, g1) => {
+            return `<mark>${g1}</mark>`;
+        });
+
         div.classList.add(code === 'SUCCESS01' ? 'success' : (isError ? 'error' : 'warning'));
         codeParagraph.innerHTML = code;
-        extraParagraph.innerHTML = extra || '';
+        extraParagraph.innerHTML = extra;
         descriptionParagraph.innerHTML = this.descriptions[code];
 
         return template.content;

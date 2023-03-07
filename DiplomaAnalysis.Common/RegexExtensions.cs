@@ -5,6 +5,8 @@ namespace DiplomaAnalysis.Common
 {
     public static class RegexExtensions
     {
+        private const string HighlightPattern = "[highlight]";
+
         public static string GetMatchTextWithContext(this Match match, string text, int range)
         {
             var startIndex = Math.Max(0, match.Index - range);
@@ -16,7 +18,9 @@ namespace DiplomaAnalysis.Common
             }
 
             return text
-                .Substring(startIndex, length);
+                .Substring(startIndex, length)
+                .Insert(match.Index - startIndex + match.Length, HighlightPattern)
+                .Insert(match.Index - startIndex, HighlightPattern);
         }
     }
 }

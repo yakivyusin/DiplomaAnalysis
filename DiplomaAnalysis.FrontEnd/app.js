@@ -15,6 +15,7 @@ class App {
         this.dropArea = document.getElementById('drop-area');
         this.resultArea = document.getElementById('result-area');
         this.fileInput = document.getElementById('file');
+        this.loader = document.getElementById('loader');
         this.results = [];
         this.registerEventHandlers();
     }
@@ -65,6 +66,9 @@ class App {
 
         this.resultArea.innerHTML = '';
         this.results = [];
+        this.loader.style.display = 'block';
+
+        let responsesCount = 0;
 
         App.apiServices.forEach(async service => {
             try {
@@ -75,14 +79,18 @@ class App {
 
                 if (response.ok) {
                     let json = await response.json();
-                    app.processServiceResponse(json.length === 0 ? [{ code: 'SUCCESS01' }] : json);
+                    app.processServiceResponse(json.length === 0 ? [{ code: 'SUCCESS01', extraMessage: service }] : json);
                 }
                 else {
-                    app.processServiceResponse([{ code: response.status !== 400 ? 'ERR01' : 'ERR02', isError: true }]);
+                    app.processServiceResponse([{ code: response.status !== 400 ? 'ERR01' : 'ERR02', isError: true, extraMessage: service }]);
                 }
             }
             catch {
-                app.processServiceResponse([{ code: 'ERR01', isError: true }]);
+                app.processServiceResponse([{ code: 'ERR01', isError: true, extraMessage: service }]);
+            }
+
+            if (++responsesCount == App.apiServices.length) {
+                this.loader.style.display = 'none';
             }
         });
 
@@ -100,8 +108,24 @@ class App {
     }
 
     saveResultsToFile() {
-        var blob = new Blob([JSON.stringify(this.results, null, 4)], { type: "text/plain;charset=utf-8" });
-        saveAs(blob, "results.json");
+        let blob = new Blob([JSON.stringify(this.results, null, 4)], { type: 'text/plain;charset=utf-8' });
+        saveAs(blob, 'results.json');
+    }
+
+    loadResultsFromFile() {
+        this.resultArea.innerHTML = '';
+        this.results = [];
+
+        let input = document.createElement('input');
+        input.type = 'file';
+        input.onchange = async e => {
+            let file = e.target.files[0];
+            let json = JSON.parse(await file.text());
+
+            app.processServiceResponse(json.length === 0 ? [{ code: 'SUCCESS01' }] : json);
+        };
+
+        input.click();
     }
 }
 
