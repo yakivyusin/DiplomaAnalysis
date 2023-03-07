@@ -83,3 +83,30 @@ body {
     right: 10px;
     font-family: sans-serif;
 }
+
+#upload-button {
+    position: fixed;
+    top: 10px;
+    left: 68px;
+    width: 48px;
+    height: 48px;
+    background-image: url("upload.png");
+    background-size: cover;
+}
+
+#loader {
+    display: none;
+    position: fixed;
+    width: 80px;
+    height: 80px;
+    top: calc(50% - 40px);
+    left: calc(50% - 40px);
+}
+
+.result-ticket.error mark {
+    background-color: rgb(255 102 102);
+}
+
+.result-ticket.warning mark {
+    background-color: rgb(255 255 48);
+}
