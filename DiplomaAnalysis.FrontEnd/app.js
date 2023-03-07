@@ -79,14 +79,14 @@ class App {
 
                 if (response.ok) {
                     let json = await response.json();
-                    app.processServiceResponse(json.length === 0 ? [{ code: 'SUCCESS01' }] : json);
+                    app.processServiceResponse(json.length === 0 ? [{ code: 'SUCCESS01', extraMessage: service }] : json);
                 }
                 else {
-                    app.processServiceResponse([{ code: response.status !== 400 ? 'ERR01' : 'ERR02', isError: true }]);
+                    app.processServiceResponse([{ code: response.status !== 400 ? 'ERR01' : 'ERR02', isError: true, extraMessage: service }]);
                 }
             }
             catch {
-                app.processServiceResponse([{ code: 'ERR01', isError: true }]);
+                app.processServiceResponse([{ code: 'ERR01', isError: true, extraMessage: service }]);
             }
 
             if (++responsesCount == App.apiServices.length) {
