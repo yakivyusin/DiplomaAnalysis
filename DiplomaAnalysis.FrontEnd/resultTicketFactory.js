@@ -21,9 +21,14 @@ class ResultTicketFactory {
         let extraParagraph = template.content.querySelector('.extra');
         let descriptionParagraph = template.content.querySelector('.description');
 
+        extra = extra || '';
+        extra = extra.replace(/\[highlight\](.*)\[highlight\]/, (_, g1) => {
+            return `<mark>${g1}</mark>`;
+        });
+
         div.classList.add(code === 'SUCCESS01' ? 'success' : (isError ? 'error' : 'warning'));
         codeParagraph.innerHTML = code;
-        extraParagraph.innerHTML = extra || '';
+        extraParagraph.innerHTML = extra;
         descriptionParagraph.innerHTML = this.descriptions[code];
 
         return template.content;

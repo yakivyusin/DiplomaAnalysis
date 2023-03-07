@@ -102,3 +102,11 @@ body {
     top: calc(50% - 40px);
     left: calc(50% - 40px);
 }
+
+.result-ticket.error mark {
+    background-color: rgb(255 102 102);
+}
+
+.result-ticket.warning mark {
+    background-color: rgb(255 255 48);
+}
