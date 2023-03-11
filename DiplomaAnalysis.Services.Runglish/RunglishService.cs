@@ -23,7 +23,7 @@ namespace DiplomaAnalysis.Services.Runglish
             return Properties
                 .Resources
                 .Terms
-                .Split('\n', StringSplitOptions.RemoveEmptyEntries)
+                .Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
                 .SelectMany(x => Analyze(_document.AllParagraphs(), x));
         }
 
