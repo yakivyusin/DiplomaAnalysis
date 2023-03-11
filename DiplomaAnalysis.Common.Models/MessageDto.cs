@@ -1,4 +1,4 @@
-﻿namespace DiplomaAnalysis.Models
+﻿namespace DiplomaAnalysis.Common.Models
 {
     public class MessageDto
     {

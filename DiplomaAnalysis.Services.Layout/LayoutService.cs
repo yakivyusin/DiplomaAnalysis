@@ -1,4 +1,4 @@
-﻿using DiplomaAnalysis.Models;
+﻿using DiplomaAnalysis.Common.Models;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;

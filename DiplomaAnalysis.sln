@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis", "DiplomaAnalysis\DiplomaAnalysis.csproj", "{5593D125-0B20-4CC5-A7EE-C8A7667D41F3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Models", "DiplomaAnalysis.Models\DiplomaAnalysis.Models.csproj", "{09F3520E-700A-4E6F-B672-F9C2437F6613}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Common.Models", "DiplomaAnalysis.Common.Models\DiplomaAnalysis.Common.Models.csproj", "{09F3520E-700A-4E6F-B672-F9C2437F6613}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Services.References", "DiplomaAnalysis.Services.References\DiplomaAnalysis.Services.References.csproj", "{EE215C04-639A-4E0D-AAC6-7D44D3791CB5}"
 EndProject
@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Services.Or
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Services.Runglish", "DiplomaAnalysis.Services.Runglish\DiplomaAnalysis.Services.Runglish.csproj", "{CF1C5EC5-C590-4458-B50F-680A83DC040A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Common", "DiplomaAnalysis.Common\DiplomaAnalysis.Common.csproj", "{AD267930-EF98-4729-A6DD-C7B3CA5954A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Common.Extensions", "DiplomaAnalysis.Common.Extensions\DiplomaAnalysis.Common.Extensions.csproj", "{AD267930-EF98-4729-A6DD-C7B3CA5954A3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Services.WordingMisuse", "DiplomaAnalysis.Services.WordingMisuse\DiplomaAnalysis.Services.WordingMisuse.csproj", "{673D960D-920E-4648-B74B-DA570601E609}"
 EndProject

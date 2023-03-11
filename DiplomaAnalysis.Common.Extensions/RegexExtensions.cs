@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace DiplomaAnalysis.Common
+namespace DiplomaAnalysis.Common.Extensions
 {
     public static class RegexExtensions
     {

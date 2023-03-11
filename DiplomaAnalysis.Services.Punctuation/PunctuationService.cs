@@ -1,5 +1,5 @@
-﻿using DiplomaAnalysis.Common;
-using DiplomaAnalysis.Models;
+﻿using DiplomaAnalysis.Common.Extensions;
+using DiplomaAnalysis.Common.Models;
 using DocumentFormat.OpenXml.Packaging;
 using System;
 using System.Collections.Generic;
