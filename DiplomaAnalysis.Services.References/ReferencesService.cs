@@ -1,5 +1,6 @@
-﻿using DiplomaAnalysis.Common;
-using DiplomaAnalysis.Models;
+﻿using DiplomaAnalysis.Common.Contracts;
+using DiplomaAnalysis.Common.Extensions;
+using DiplomaAnalysis.Common.Models;
 using DocumentFormat.OpenXml.Packaging;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace DiplomaAnalysis.Services.References
 {
-    public class ReferencesService : IDisposable
+    public sealed class ReferencesService : IAnalysisService
     {
         private const string DstuReferencePattern = @"\[\d+\]";
         private const string ApaReferencePattern = @"\(\p{L}.+, \d{4}[a-z]?\)";
@@ -20,7 +21,7 @@ namespace DiplomaAnalysis.Services.References
             _document = WordprocessingDocument.Open(data, false);
         }
 
-        public IEnumerable<MessageDto> Analyze()
+        public IReadOnlyCollection<MessageDto> Analyze()
         {
             var dstuRegex = new Regex(DstuReferencePattern, RegexOptions.Compiled);
             var apaPattern = new Regex(ApaReferencePattern, RegexOptions.Compiled);
@@ -31,7 +32,9 @@ namespace DiplomaAnalysis.Services.References
 
             if (isAnyTextContainsReference)
             {
-                return Enumerable.Empty<MessageDto>();
+                return Enumerable
+                    .Empty<MessageDto>()
+                    .ToList();
             }
             else
             {

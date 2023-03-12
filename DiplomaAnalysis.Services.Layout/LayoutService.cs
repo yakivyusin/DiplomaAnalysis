@@ -1,4 +1,5 @@
-﻿using DiplomaAnalysis.Models;
+﻿using DiplomaAnalysis.Common.Contracts;
+using DiplomaAnalysis.Common.Models;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
@@ -9,7 +10,7 @@ using System.Linq;
 
 namespace DiplomaAnalysis.Services.Layout
 {
-    public class LayoutService : IDisposable
+    public sealed class LayoutService : IAnalysisService
     {
         private static readonly int ShortSize = (int)Math.Round(21.0 * 1440 / 2.54);
         private static readonly int LongSize = (int)Math.Round(29.7 * 1440 / 2.54);
@@ -24,8 +25,10 @@ namespace DiplomaAnalysis.Services.Layout
             _document = WordprocessingDocument.Open(data, false);
         }
 
-        public IEnumerable<MessageDto> Analyze()
+        public IReadOnlyCollection<MessageDto> Analyze()
         {
+            var result = new List<MessageDto>();
+
             var sectionProperties = _document
                 .MainDocumentPart
                 .Document
@@ -37,25 +40,27 @@ namespace DiplomaAnalysis.Services.Layout
                 .Select(x => x.GetFirstChild<PageSize>())
                 .Any(x => !IsPageSizeCorrect(x)))
             {
-                yield return new MessageDto
+                result.Add(new MessageDto
                 {
                     Code = AnalysisCode.PageSize,
                     IsError = true,
                     ExtraMessage = null
-                };
+                });
             }
 
             if (sectionProperties
                 .Select(x => x.GetFirstChild<PageMargin>())
                 .Any(x => !IsPageMarginCorrect(x)))
             {
-                yield return new MessageDto
+                result.Add(new MessageDto
                 {
                     Code = AnalysisCode.PageMargin,
                     IsError = false,
                     ExtraMessage = null
-                };
+                });
             }
+
+            return result.AsReadOnly();
         }
 
         private bool IsPageSizeCorrect(PageSize size)

@@ -1,5 +1,6 @@
-﻿using DiplomaAnalysis.Common;
-using DiplomaAnalysis.Models;
+﻿using DiplomaAnalysis.Common.Contracts;
+using DiplomaAnalysis.Common.Extensions;
+using DiplomaAnalysis.Common.Models;
 using DocumentFormat.OpenXml.Packaging;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace DiplomaAnalysis.Services.CharReplacement
 {
-    public class CharReplacementService : IDisposable
+    public sealed class CharReplacementService : IAnalysisService
     {
         private static readonly Regex[] _regexes = new Regex[]
         {
@@ -23,10 +24,12 @@ namespace DiplomaAnalysis.Services.CharReplacement
             _document = WordprocessingDocument.Open(data, false);
         }
 
-        public IEnumerable<MessageDto> Analyze()
+        public IReadOnlyCollection<MessageDto> Analyze()
         {
             return _regexes
-                .SelectMany(x => Analyze(_document.AllParagraphs(), x));
+                .SelectMany(x => Analyze(_document.AllParagraphs(), x))
+                .ToList()
+                .AsReadOnly();
         }
 
         private IEnumerable<MessageDto> Analyze(IEnumerable<string> texts, Regex regex)

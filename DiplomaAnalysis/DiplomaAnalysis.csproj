@@ -2,11 +2,13 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <AzureFunctionsVersion>v4</AzureFunctionsVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.1.3" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DiplomaAnalysis.Common.Contracts\DiplomaAnalysis.Common.Contracts.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.CharReplacement\DiplomaAnalysis.Services.CharReplacement.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.Layout\DiplomaAnalysis.Services.Layout.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.Orthography2019\DiplomaAnalysis.Services.Orthography2019.csproj" />
@@ -14,6 +16,13 @@
     <ProjectReference Include="..\DiplomaAnalysis.Services.References\DiplomaAnalysis.Services.References.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.Runglish\DiplomaAnalysis.Services.Runglish.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.WordingMisuse\DiplomaAnalysis.Services.WordingMisuse.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Microsoft.AspNetCore.Http" />
+    <Using Include="Microsoft.AspNetCore.Mvc" />
+    <Using Include="Microsoft.Azure.WebJobs" />
+    <Using Include="Microsoft.Azure.WebJobs.Extensions.Http" />
+    <Using Include="Microsoft.Extensions.Logging" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">

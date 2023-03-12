@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DiplomaAnalysis.Common
+namespace DiplomaAnalysis.Common.Extensions
 {
     public static class WordExtensions
     {
