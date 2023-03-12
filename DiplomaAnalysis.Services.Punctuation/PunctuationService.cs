@@ -1,4 +1,5 @@
-﻿using DiplomaAnalysis.Common.Extensions;
+﻿using DiplomaAnalysis.Common.Contracts;
+using DiplomaAnalysis.Common.Extensions;
 using DiplomaAnalysis.Common.Models;
 using DocumentFormat.OpenXml.Packaging;
 using System;
@@ -9,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace DiplomaAnalysis.Services.Punctuation
 {
-    public class PunctuationService : IDisposable
+    public sealed class PunctuationService : IAnalysisService
     {
         private static readonly Regex[] _punctuationSpacingRegexes = new Regex[]
         {
@@ -25,12 +26,14 @@ namespace DiplomaAnalysis.Services.Punctuation
             _document = WordprocessingDocument.Open(data, false);
         }
 
-        public IEnumerable<MessageDto> Analyze()
+        public IReadOnlyCollection<MessageDto> Analyze()
         {
             return _punctuationSpacingRegexes
                 .Select(x => (regex: x, code: AnalysisCode.PunctuationSpacing, isError: true))
                 .Append((_quotesRegex, AnalysisCode.Quotes, isError: false))
-                .SelectMany(x => Analyze(_document.AllParagraphs(), x));
+                .SelectMany(x => Analyze(_document.AllParagraphs(), x))
+                .ToList()
+                .AsReadOnly();
         }
 
         private IEnumerable<MessageDto> Analyze(IEnumerable<string> texts, (Regex regex, string code, bool isError) rule)

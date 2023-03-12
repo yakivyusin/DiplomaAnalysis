@@ -1,4 +1,5 @@
-﻿using DiplomaAnalysis.Common.Extensions;
+﻿using DiplomaAnalysis.Common.Contracts;
+using DiplomaAnalysis.Common.Extensions;
 using DiplomaAnalysis.Common.Models;
 using DocumentFormat.OpenXml.Packaging;
 using System;
@@ -9,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace DiplomaAnalysis.Services.Runglish
 {
-    public class RunglishService : IDisposable
+    public sealed class RunglishService : IAnalysisService
     {
         private readonly WordprocessingDocument _document;
 
@@ -18,13 +19,15 @@ namespace DiplomaAnalysis.Services.Runglish
             _document = WordprocessingDocument.Open(data, false);
         }
 
-        public IEnumerable<MessageDto> Analyze()
+        public IReadOnlyCollection<MessageDto> Analyze()
         {
             return Properties
                 .Resources
                 .Terms
                 .Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
-                .SelectMany(x => Analyze(_document.AllParagraphs(), x));
+                .SelectMany(x => Analyze(_document.AllParagraphs(), x))
+                .ToList()
+                .AsReadOnly();
         }
 
         private IEnumerable<MessageDto> Analyze(IEnumerable<string> texts, string pattern)
