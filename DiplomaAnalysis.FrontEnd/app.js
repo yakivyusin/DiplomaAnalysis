@@ -17,6 +17,7 @@ class App {
         this.fileInput = document.getElementById('file');
         this.loader = document.getElementById('loader');
         this.results = [];
+        this.initialPageTitle = document.title;
         this.registerEventHandlers();
     }
 
@@ -67,6 +68,7 @@ class App {
         this.resultArea.innerHTML = '';
         this.results = [];
         this.loader.style.display = 'block';
+        this.setPageTitle(file.name);
 
         let responsesCount = 0;
 
@@ -123,9 +125,14 @@ class App {
             let json = JSON.parse(await file.text());
 
             app.processServiceResponse(json.length === 0 ? [{ code: 'SUCCESS01' }] : json);
+            this.setPageTitle(file.name);
         };
 
         input.click();
+    }
+
+    setPageTitle(fileName) {
+        document.title = `${this.initialPageTitle} - ${fileName}`;
     }
 }
 
