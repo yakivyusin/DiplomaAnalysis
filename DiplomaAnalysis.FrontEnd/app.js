@@ -120,6 +120,7 @@ class App {
 
         let input = document.createElement('input');
         input.type = 'file';
+        input.accept = '.json';
         input.onchange = async e => {
             let file = e.target.files[0];
             let json = JSON.parse(await file.text());
