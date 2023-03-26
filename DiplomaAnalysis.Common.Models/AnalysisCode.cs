@@ -11,5 +11,6 @@
         public const string CharacterReplacement = "ORT04";
         public const string PunctuationSpacing = "PNC01";
         public const string Quotes = "PNC02";
+        public const string Typographical = "PNC03";
     }
 }
