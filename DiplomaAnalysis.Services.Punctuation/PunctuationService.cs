@@ -22,7 +22,9 @@ namespace DiplomaAnalysis.Services.Punctuation
         private static readonly Regex[] _typographicRegexes = new Regex[]
         {
             new(@"\.{3}", RegexOptions.Compiled),
-            new(@"\s-\s", RegexOptions.Compiled)
+            new(@"\p{IsCyrillic}\s-\s\p{IsCyrillic}", RegexOptions.Compiled),
+            new(@"\P{IsCyrillic}\s-\s\p{IsCyrillic}", RegexOptions.Compiled),
+            new(@"\p{IsCyrillic}\s-\s\P{IsCyrillic}", RegexOptions.Compiled)
         };
         private readonly WordprocessingDocument _document;
 
