@@ -18,7 +18,14 @@ namespace DiplomaAnalysis.Services.Punctuation
             new(@"\p{IsCyrillic}\s[.,:;?!]\s\p{IsCyrillic}", RegexOptions.Compiled),
             new(@"\p{IsCyrillic}\s[.,:;?!]\p{IsCyrillic}", RegexOptions.Compiled)
         };
-        private static readonly Regex _quotesRegex = new(@"[“”„""]", RegexOptions.Compiled);
+        private static readonly Regex _quotesRegex = new(@"(?<!«[^»]+)[“”„""](?![^«]+»)", RegexOptions.Compiled);
+        private static readonly Regex[] _typographicRegexes = new Regex[]
+        {
+            new(@"\.{3}", RegexOptions.Compiled),
+            new(@"\p{IsCyrillic}\s-\s\p{IsCyrillic}", RegexOptions.Compiled),
+            new(@"\P{IsCyrillic}\s-\s\p{IsCyrillic}", RegexOptions.Compiled),
+            new(@"\p{IsCyrillic}\s-\s\P{IsCyrillic}", RegexOptions.Compiled)
+        };
         private readonly WordprocessingDocument _document;
 
         public PunctuationService(Stream data)
@@ -29,8 +36,9 @@ namespace DiplomaAnalysis.Services.Punctuation
         public IReadOnlyCollection<MessageDto> Analyze()
         {
             return _punctuationSpacingRegexes
-                .Select(x => (regex: x, code: AnalysisCode.PunctuationSpacing, isError: true))
+                .Select(x => (x, AnalysisCode.PunctuationSpacing, isError: true))
                 .Append((_quotesRegex, AnalysisCode.Quotes, isError: false))
+                .Concat(_typographicRegexes.Select(x => (x, AnalysisCode.Typographical, isError: true)))
                 .SelectMany(x => Analyze(_document.AllParagraphs(), x))
                 .ToList()
                 .AsReadOnly();

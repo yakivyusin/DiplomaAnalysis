@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <RunConfiguration>
+    <EnvironmentVariables>
+      <APPLICATION_PATH>http://localhost:7071</APPLICATION_PATH>
+    </EnvironmentVariables>
+  </RunConfiguration>
+</RunSettings>

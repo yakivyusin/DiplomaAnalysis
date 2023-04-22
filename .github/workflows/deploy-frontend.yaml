@@ -12,11 +12,11 @@ jobs:
 
       - name: Patch API root
         run: |
-          sed -i 's+http://localhost:7071+https://diplomaanalysis.azurewebsites.net+g' DiplomaAnalysis.FrontEnd/app.js
+          sed -i 's+http://localhost:7071+${{ env.APPLICATION_PATH }}+g' DiplomaAnalysis.FrontEnd/app.js
         
       - name: Patch version
         run: |
-          sed -i 's+v.0.0.0+v.1.0.0-beta.2.2.1+g' DiplomaAnalysis.FrontEnd/index.html
+          sed -i 's+v.0.0.0+v.1.0.0-beta.3+g' DiplomaAnalysis.FrontEnd/index.html
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.4.1
