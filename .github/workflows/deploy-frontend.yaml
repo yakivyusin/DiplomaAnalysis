@@ -12,7 +12,7 @@ jobs:
 
       - name: Patch API root
         run: |
-          sed -i 's+http://localhost:7071+${{ env.APPLICATION_PATH }}+g' DiplomaAnalysis.FrontEnd/app.js
+          sed -i 's+http://localhost:7071+${{ vars.APPLICATION_PATH }}+g' DiplomaAnalysis.FrontEnd/app.js
         
       - name: Patch version
         run: |
