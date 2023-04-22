@@ -1,5 +1,5 @@
 class App {
-    static apiHost = '';
+    static apiHost = 'https://diplomaanalysis.azurewebsites.net';
     static apiServices =
         [
             '/api/Layout',
