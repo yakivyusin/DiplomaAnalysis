@@ -1,4 +1,5 @@
 ﻿using DiplomaAnalysis.Common.Contracts;
+using DiplomaAnalysis.Common.Extensions;
 using DiplomaAnalysis.Common.Models;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
@@ -82,10 +83,10 @@ namespace DiplomaAnalysis.Services.Layout
         private bool IsPageMarginCorrect(PageMargin margin)
         {
             return
-                Math.Abs(margin.Left - LeftMargin) <= AllowedDifference &&
-                Math.Abs(margin.Right - OtherMargins) <= AllowedDifference &&
-                Math.Abs(margin.Top - OtherMargins) <= AllowedDifference &&
-                Math.Abs(margin.Bottom - OtherMargins) <= AllowedDifference;
+                Math.Abs(margin.Left.ValueSafe() - LeftMargin) <= AllowedDifference &&
+                Math.Abs(margin.Right.ValueSafe() - OtherMargins) <= AllowedDifference &&
+                Math.Abs(margin.Top.ValueSafe() - OtherMargins) <= AllowedDifference &&
+                Math.Abs(margin.Bottom.ValueSafe() - OtherMargins) <= AllowedDifference;
         }
 
         public void Dispose()
