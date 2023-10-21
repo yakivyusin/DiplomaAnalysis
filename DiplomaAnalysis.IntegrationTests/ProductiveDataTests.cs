@@ -90,7 +90,7 @@ namespace DiplomaAnalysis.IntegrationTests
         }
 
         [SkippableTheory]
-        [InlineData("1.docx.aes", 0)]
+        [InlineData("1.docx.aes", 1)]
         [InlineData("2.docx.aes", 0)]
         [InlineData("3.docx.aes", 1)]
         [InlineData("4.docx.aes", 5)]

@@ -7,5 +7,7 @@
         public bool IsError { get; set; }
 
         public string ExtraMessage { get; set; }
+
+        public override string ToString() => $"{Code}: {ExtraMessage}";
     }
 }

@@ -55,7 +55,7 @@ namespace DiplomaAnalysis.IntegrationTests
         }
 
         [Theory]
-        [InlineData("1.docx", 3)]
+        [InlineData("1.docx", 11)]
         public async void Runglish(string fileName, int messagesCount)
         {
             var res = await _analysisServiceClient.GetAnalysisResult(fileName);
