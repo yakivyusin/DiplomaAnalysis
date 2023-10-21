@@ -71,7 +71,15 @@ namespace DiplomaAnalysis.Services.Runglish.Properties {
         ///пат{1,2}ерн
         ///чекбокс
         ///десктоп
-        ///дефолт.
+        ///дефолт
+        ///скролінг
+        ///депло(?:й|ї|ю|я)
+        ///клауд
+        ///бек-?енд
+        ///фронт-?енд
+        ///\sенам
+        ///трекінг
+        ///юзер.
         /// </summary>
         internal static string Terms {
             get {
