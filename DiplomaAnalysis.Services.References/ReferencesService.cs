@@ -12,7 +12,7 @@ namespace DiplomaAnalysis.Services.References
 {
     public sealed class ReferencesService : IAnalysisService
     {
-        private const string DstuReferencePattern = @"\[\d+\]";
+        private const string DstuReferencePattern = @"\[(\d+)\]";
         private const string ApaReferencePattern = @"\(\p{L}.+, \d{4}[a-z]?\)";
         private readonly WordprocessingDocument _document;
 
@@ -23,31 +23,64 @@ namespace DiplomaAnalysis.Services.References
 
         public IReadOnlyCollection<MessageDto> Analyze()
         {
+            var result = new List<MessageDto>();
+
             var dstuRegex = new Regex(DstuReferencePattern, RegexOptions.Compiled);
-            var apaPattern = new Regex(ApaReferencePattern, RegexOptions.Compiled);
+            var apaRegex = new Regex(ApaReferencePattern, RegexOptions.Compiled);
 
-            var isAnyTextContainsReference = _document
+            var dstuReferences = _document
                 .AllParagraphs()
-                .Any(x => dstuRegex.IsMatch(x) || apaPattern.IsMatch(x));
+                .SelectMany(x => dstuRegex.Matches(x))
+                .ToList();
 
-            if (isAnyTextContainsReference)
+            var apaReferences = _document
+                .AllParagraphs()
+                .SelectMany(x => apaRegex.Matches(x))
+                .ToList();
+
+            if (dstuReferences.Count == 0 && apaReferences.Count == 0)
             {
-                return Enumerable
-                    .Empty<MessageDto>()
-                    .ToList();
-            }
-            else
-            {
-                return new[]
+                result.Add(new()
                 {
-                    new MessageDto
-                    {
-                        Code = AnalysisCode.References,
-                        IsError = false,
-                        ExtraMessage = null
-                    }
-                };
+                    Code = AnalysisCode.References,
+                    IsError = false,
+                    ExtraMessage = null
+                });
             }
+
+            if (dstuReferences.Count > 0 && !AreDstuInCorrectOrder(dstuReferences))
+            {
+                result.Add(new()
+                {
+                    Code = AnalysisCode.ReferencesOrder,
+                    IsError = true,
+                    ExtraMessage = null
+                });
+            }
+
+            return result;
+        }
+
+        private bool AreDstuInCorrectOrder(List<Match> dstuReferences)
+        {
+            var numbers = dstuReferences
+                .Select(x => int.Parse(x.Groups[1].Value))
+                .ToList();
+
+            if (numbers[0] != 1)
+            {
+                return false;
+            }
+
+            foreach (var (number, index) in numbers.Select((x, index) => (number: x, index)).Where(x => x.number > 1))
+            {
+                if (!numbers.Take(index).Any(x => x == number - 1))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public void Dispose()
