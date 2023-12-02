@@ -1,15 +1,20 @@
 using DiplomaAnalysis.Services.Orthography2019;
 
-namespace DiplomaAnalysis
+namespace DiplomaAnalysis;
+
+public class Orthography2019
 {
-    public static class Orthography2019
+    private readonly ILogger<Orthography2019> _logger;
+
+    public Orthography2019(ILogger<Orthography2019> logger)
     {
-        [FunctionName("Orthography2019")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            return await RunService.Run(file => new OrthographyService(file.OpenReadStream()), req, log);
-        }
+        _logger = logger;
+    }
+
+    [Function("Orthography2019")]
+    public async Task<IActionResult> Run(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
+    {
+        return await RunService.Run(file => new OrthographyService(file.OpenReadStream()), req, _logger);
     }
 }

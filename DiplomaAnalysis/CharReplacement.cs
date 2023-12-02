@@ -1,15 +1,20 @@
 using DiplomaAnalysis.Services.CharReplacement;
 
-namespace DiplomaAnalysis
+namespace DiplomaAnalysis;
+
+public class CharReplacement
 {
-    public static class CharReplacement
+    private readonly ILogger<CharReplacement> _logger;
+
+    public CharReplacement(ILogger<CharReplacement> logger)
     {
-        [FunctionName("CharReplacement")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            return await RunService.Run(file => new CharReplacementService(file.OpenReadStream()), req, log);
-        }
+        _logger = logger;
+    }
+
+    [Function("CharReplacement")]
+    public async Task<IActionResult> Run(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
+    {
+        return await RunService.Run(file => new CharReplacementService(file.OpenReadStream()), req, _logger);
     }
 }

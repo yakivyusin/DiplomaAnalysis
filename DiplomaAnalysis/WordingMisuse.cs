@@ -1,15 +1,20 @@
 using DiplomaAnalysis.Services.WordingMisuse;
 
-namespace DiplomaAnalysis
+namespace DiplomaAnalysis;
+
+public class WordingMisuse
 {
-    public static class WordingMisuse
+    private readonly ILogger<WordingMisuse> _logger;
+
+    public WordingMisuse(ILogger<WordingMisuse> logger)
     {
-        [FunctionName("WordingMisuse")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            return await RunService.Run(file => new WordingMisuseService(file.OpenReadStream()), req, log);
-        }
+        _logger = logger;
+    }
+
+    [Function("WordingMisuse")]
+    public async Task<IActionResult> Run(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
+    {
+        return await RunService.Run(file => new WordingMisuseService(file.OpenReadStream()), req, _logger);
     }
 }

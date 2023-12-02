@@ -1,15 +1,20 @@
 using DiplomaAnalysis.Services.References;
 
-namespace DiplomaAnalysis
+namespace DiplomaAnalysis;
+
+public class References
 {
-    public static class References
+    private readonly ILogger<References> _logger;
+
+    public References(ILogger<References> logger)
     {
-        [FunctionName("References")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            return await RunService.Run(file => new ReferencesService(file.OpenReadStream()), req, log);
-        }
+        _logger = logger;
+    }
+
+    [Function("References")]
+    public async Task<IActionResult> Run(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
+    {
+        return await RunService.Run(file => new ReferencesService(file.OpenReadStream()), req, _logger);
     }
 }
