@@ -2,10 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace DiplomaAnalysis.Common.Contracts
+namespace DiplomaAnalysis.Common.Contracts;
+
+public interface IAnalysisService : IDisposable
 {
-    public interface IAnalysisService : IDisposable
-    {
-        IReadOnlyCollection<MessageDto> Analyze();
-    }
+    IReadOnlyCollection<MessageDto> Analyze();
 }
