@@ -1,20 +1,15 @@
+using DiplomaAnalysis.Common.Contracts;
 using DiplomaAnalysis.Services.Punctuation;
 
 namespace DiplomaAnalysis;
 
-public class Punctuation
+public class Punctuation(ILogger<Punctuation> logger) : FunctionBase(logger)
 {
-    private readonly ILogger<Punctuation> _logger;
-
-    public Punctuation(ILogger<Punctuation> logger)
-    {
-        _logger = logger;
-    }
-
     [Function("Punctuation")]
-    public async Task<IActionResult> Run(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
+    public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
     {
-        return await RunService.Run(file => new PunctuationService(file.OpenReadStream()), req, _logger);
+        return RunAnalysis(req);
     }
+
+    protected override IAnalysisService CreateService(IFormFile formFile) => new PunctuationService(formFile.OpenReadStream());
 }
