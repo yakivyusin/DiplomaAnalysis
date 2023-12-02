@@ -1,15 +1,15 @@
+using DiplomaAnalysis.Common.Contracts;
 using DiplomaAnalysis.Services.Layout;
 
-namespace DiplomaAnalysis
+namespace DiplomaAnalysis;
+
+public class Layout(ILogger<Layout> logger) : FunctionBase(logger)
 {
-    public static class Layout
+    [Function("Layout")]
+    public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
     {
-        [FunctionName("Layout")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            return await RunService.Run(file => new LayoutService(file.OpenReadStream()), req, log);
-        }
+        return RunAnalysis(req);
     }
+
+    protected override IAnalysisService CreateService(IFormFile formFile) => new LayoutService(formFile.OpenReadStream());
 }

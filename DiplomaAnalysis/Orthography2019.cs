@@ -1,15 +1,15 @@
+using DiplomaAnalysis.Common.Contracts;
 using DiplomaAnalysis.Services.Orthography2019;
 
-namespace DiplomaAnalysis
+namespace DiplomaAnalysis;
+
+public class Orthography2019(ILogger<Orthography2019> logger) : FunctionBase(logger)
 {
-    public static class Orthography2019
+    [Function("Orthography2019")]
+    public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
     {
-        [FunctionName("Orthography2019")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            return await RunService.Run(file => new OrthographyService(file.OpenReadStream()), req, log);
-        }
+        return RunAnalysis(req);
     }
+
+    protected override IAnalysisService CreateService(IFormFile formFile) => new OrthographyService(formFile.OpenReadStream());
 }

@@ -1,15 +1,15 @@
+using DiplomaAnalysis.Common.Contracts;
 using DiplomaAnalysis.Services.References;
 
-namespace DiplomaAnalysis
+namespace DiplomaAnalysis;
+
+public class References(ILogger<References> logger) : FunctionBase(logger)
 {
-    public static class References
+    [Function("References")]
+    public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
     {
-        [FunctionName("References")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            return await RunService.Run(file => new ReferencesService(file.OpenReadStream()), req, log);
-        }
+        return RunAnalysis(req);
     }
+
+    protected override IAnalysisService CreateService(IFormFile formFile) => new ReferencesService(formFile.OpenReadStream());
 }

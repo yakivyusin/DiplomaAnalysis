@@ -1,15 +1,15 @@
+using DiplomaAnalysis.Common.Contracts;
 using DiplomaAnalysis.Services.WordingMisuse;
 
-namespace DiplomaAnalysis
+namespace DiplomaAnalysis;
+
+public class WordingMisuse(ILogger<WordingMisuse> logger) : FunctionBase(logger)
 {
-    public static class WordingMisuse
+    [Function("WordingMisuse")]
+    public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
     {
-        [FunctionName("WordingMisuse")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            return await RunService.Run(file => new WordingMisuseService(file.OpenReadStream()), req, log);
-        }
+        return RunAnalysis(req);
     }
+
+    protected override IAnalysisService CreateService(IFormFile formFile) => new WordingMisuseService(formFile.OpenReadStream());
 }

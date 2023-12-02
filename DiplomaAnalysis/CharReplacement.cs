@@ -1,15 +1,15 @@
+using DiplomaAnalysis.Common.Contracts;
 using DiplomaAnalysis.Services.CharReplacement;
 
-namespace DiplomaAnalysis
+namespace DiplomaAnalysis;
+
+public class CharReplacement(ILogger<CharReplacement> logger) : FunctionBase(logger)
 {
-    public static class CharReplacement
+    [Function("CharReplacement")]
+    public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
     {
-        [FunctionName("CharReplacement")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            return await RunService.Run(file => new CharReplacementService(file.OpenReadStream()), req, log);
-        }
+        return RunAnalysis(req);
     }
+
+    protected override IAnalysisService CreateService(IFormFile formFile) => new CharReplacementService(formFile.OpenReadStream());
 }

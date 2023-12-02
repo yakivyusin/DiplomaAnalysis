@@ -1,15 +1,15 @@
+using DiplomaAnalysis.Common.Contracts;
 using DiplomaAnalysis.Services.Runglish;
 
-namespace DiplomaAnalysis
+namespace DiplomaAnalysis;
+
+public class Runglish(ILogger<Runglish> logger) : FunctionBase(logger)
 {
-    public static class Runglish
+    [Function("Runglish")]
+    public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
     {
-        [FunctionName("Runglish")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            return await RunService.Run(file => new RunglishService(file.OpenReadStream()), req, log);
-        }
+        return RunAnalysis(req);
     }
+
+    protected override IAnalysisService CreateService(IFormFile formFile) => new RunglishService(formFile.OpenReadStream());
 }
