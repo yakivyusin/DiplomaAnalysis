@@ -12,8 +12,9 @@ namespace DiplomaAnalysis.Services.References;
 
 public sealed class ReferencesService : IAnalysisService
 {
-    private const string DstuReferencePattern = @"\[(\d+)\]";
-    private const string ApaReferencePattern = @"\(\p{L}.+, \d{4}[a-z]?\)";
+    private static readonly Regex DstuReferenceRegex = new(@"\[(\d+)\]", RegexOptions.Compiled);
+    private static readonly Regex ApaReferenceRegex = new(@"\(\p{L}.+, \d{4}[a-z]?\)", RegexOptions.Compiled);
+    
     private readonly WordprocessingDocument _document;
 
     public ReferencesService(Stream data)
@@ -25,17 +26,14 @@ public sealed class ReferencesService : IAnalysisService
     {
         var result = new List<MessageDto>();
 
-        var dstuRegex = new Regex(DstuReferencePattern, RegexOptions.Compiled);
-        var apaRegex = new Regex(ApaReferencePattern, RegexOptions.Compiled);
-
         var dstuReferences = _document
             .AllParagraphs()
-            .SelectMany(x => dstuRegex.Matches(x))
+            .SelectMany(x => DstuReferenceRegex.Matches(x))
             .ToList();
 
         var apaReferences = _document
             .AllParagraphs()
-            .SelectMany(x => apaRegex.Matches(x))
+            .SelectMany(x => ApaReferenceRegex.Matches(x))
             .ToList();
 
         if (dstuReferences.Count == 0 && apaReferences.Count == 0)

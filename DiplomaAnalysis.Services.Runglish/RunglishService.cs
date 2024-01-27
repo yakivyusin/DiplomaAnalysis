@@ -32,10 +32,8 @@ public sealed class RunglishService : IAnalysisService
 
     private IEnumerable<MessageDto> Analyze(IEnumerable<string> texts, string pattern)
     {
-        var regex = new Regex(pattern, RegexOptions.IgnoreCase);
-
         return texts
-            .SelectMany(x => regex.Matches(x).Select(m => new { Match = m, Text = x }))
+            .SelectMany(x => Regex.Matches(x, pattern).Select(m => new { Match = m, Text = x }))
             .Select(x => new MessageDto
             {
                 Code = AnalysisCode.Runglish,
