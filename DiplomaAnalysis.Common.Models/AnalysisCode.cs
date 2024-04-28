@@ -13,4 +13,5 @@ public static class AnalysisCode
     public const string PunctuationSpacing = "PNC01";
     public const string Quotes = "PNC02";
     public const string Typographical = "PNC03";
+    public const string Pronouns = "STL02";
 }
