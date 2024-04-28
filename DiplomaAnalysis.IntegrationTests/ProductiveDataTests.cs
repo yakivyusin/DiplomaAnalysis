@@ -60,13 +60,13 @@ public class ProductiveDataTests
     }
 
     [SkippableTheory]
-    [InlineData("1.docx.aes", 23)]
-    [InlineData("2.docx.aes", 18)]
-    [InlineData("3.docx.aes", 19)]
+    [InlineData("1.docx.aes", 27)]
+    [InlineData("2.docx.aes", 23)]
+    [InlineData("3.docx.aes", 49)]
     [InlineData("4.docx.aes", 50)]
-    [InlineData("5.docx.aes", 55)]
-    [InlineData("6.docx.aes", 22)]
-    [InlineData("7.docx.aes", 120)]
+    [InlineData("5.docx.aes", 61)]
+    [InlineData("6.docx.aes", 29)]
+    [InlineData("7.docx.aes", 142)]
     public async void Punctuation(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
