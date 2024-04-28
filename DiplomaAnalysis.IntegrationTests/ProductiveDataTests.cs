@@ -118,4 +118,19 @@ public class ProductiveDataTests
 
         Assert.Equal(messagesCount, res.Length);
     }
+
+    [SkippableTheory]
+    [InlineData("1.docx.aes", 0)]
+    [InlineData("2.docx.aes", 0)]
+    [InlineData("3.docx.aes", 3)]
+    [InlineData("4.docx.aes", 0)]
+    [InlineData("5.docx.aes", 0)]
+    [InlineData("6.docx.aes", 0)]
+    [InlineData("7.docx.aes", 2)]
+    public async void Pronouns(string fileName, int messagesCount)
+    {
+        var res = await _analysisServiceClient.GetAnalysisResult(fileName);
+
+        Assert.Equal(messagesCount, res.Length);
+    }
 }
