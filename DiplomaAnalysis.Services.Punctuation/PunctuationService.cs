@@ -22,9 +22,10 @@ public sealed class PunctuationService : IAnalysisService
     private static readonly Regex[] _typographicRegexes =
     [
         new(@"\.{3}", RegexOptions.Compiled),
-        new(@"\p{IsCyrillic}\s-\s\p{IsCyrillic}", RegexOptions.Compiled),
-        new(@"\P{IsCyrillic}\s-\s\p{IsCyrillic}", RegexOptions.Compiled),
-        new(@"\p{IsCyrillic}\s-\s\P{IsCyrillic}", RegexOptions.Compiled)
+        new(@"\p{IsCyrillic}\s[-—]\s\p{IsCyrillic}", RegexOptions.Compiled),
+        new(@"\P{IsCyrillic}\s[-—]\s\p{IsCyrillic}", RegexOptions.Compiled),
+        new(@"\p{IsCyrillic}\s[-—]\s\P{IsCyrillic}", RegexOptions.Compiled),
+        new(@"\p{IsCyrillic}'[яюєї]", RegexOptions.Compiled)
     ];
     private readonly WordprocessingDocument _document;
 

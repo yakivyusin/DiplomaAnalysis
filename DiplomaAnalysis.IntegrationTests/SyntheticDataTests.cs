@@ -71,4 +71,13 @@ public class SyntheticDataTests
 
         Assert.Equal(messagesCount, res.Length);
     }
+
+    [Theory]
+    [InlineData("1.docx", 5)]
+    public async void Pronouns(string fileName, int messagesCount)
+    {
+        var res = await _analysisServiceClient.GetAnalysisResult(fileName);
+
+        Assert.Equal(messagesCount, res.Length);
+    }
 }

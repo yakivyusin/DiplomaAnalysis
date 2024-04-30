@@ -8,7 +8,8 @@ class App {
             '/api/Runglish',
             '/api/WordingMisuse',
             '/api/CharReplacement',
-            '/api/Punctuation'
+            '/api/Punctuation',
+            '/api/Pronouns'
         ];
 
     constructor() {
