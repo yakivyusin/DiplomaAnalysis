@@ -25,7 +25,7 @@ public sealed class PunctuationService : IAnalysisService
         new(@"\p{IsCyrillic}\s[-—]\s\p{IsCyrillic}", RegexOptions.Compiled),
         new(@"\P{IsCyrillic}\s[-—]\s\p{IsCyrillic}", RegexOptions.Compiled),
         new(@"\p{IsCyrillic}\s[-—]\s\P{IsCyrillic}", RegexOptions.Compiled),
-        new(@"\p{IsCyrillic}'[яюєї]", RegexOptions.Compiled)
+        new(@"\p{IsCyrillic}[`'][яюєї]", RegexOptions.Compiled)
     ];
     private readonly WordprocessingDocument _document;
 
