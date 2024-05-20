@@ -16,7 +16,7 @@ jobs:
         
       - name: Patch version
         run: |
-          sed -i 's+v.0.0.0+v.1.0.0-beta.3.1.2+g' DiplomaAnalysis.FrontEnd/index.html
+          sed -i 's+v.0.0.0+v.1.0.0-beta.3.1.3+g' DiplomaAnalysis.FrontEnd/index.html
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.6.0
