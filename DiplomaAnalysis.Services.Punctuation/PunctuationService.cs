@@ -16,7 +16,8 @@ public sealed class PunctuationService : IAnalysisService
     [
         new(@"\p{IsCyrillic}[.,:;?!]\p{IsCyrillic}", RegexOptions.Compiled),
         new(@"\p{IsCyrillic}\s[.,:;?!]\s\p{IsCyrillic}", RegexOptions.Compiled),
-        new(@"\p{IsCyrillic}\s[.,:;?!]\p{IsCyrillic}", RegexOptions.Compiled)
+        new(@"\p{IsCyrillic}\s[.,:;?!]\p{IsCyrillic}", RegexOptions.Compiled),
+        new(@"\p{IsCyrillic}[–—]\p{IsCyrillic}", RegexOptions.Compiled)
     ];
     private static readonly Regex _quotesRegex = new(@"(?<!«[^»]+)[“”„""](?![^«]+»)", RegexOptions.Compiled);
     private static readonly Regex[] _typographicRegexes =

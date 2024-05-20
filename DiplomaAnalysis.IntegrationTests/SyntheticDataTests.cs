@@ -37,7 +37,7 @@ public class SyntheticDataTests
     }
 
     [Theory]
-    [InlineData("1.docx", 0)]
+    [InlineData("1.docx", 1)]
     public async void Punctuation(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -73,7 +73,7 @@ public class SyntheticDataTests
     }
 
     [Theory]
-    [InlineData("1.docx", 5)]
+    [InlineData("1.docx", 6)]
     public async void Pronouns(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
