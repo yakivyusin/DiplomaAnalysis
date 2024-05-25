@@ -14,4 +14,8 @@ public static class AnalysisCode
     public const string Typographical = "PNC03";
     public const string Runglish = "STL01";
     public const string Pronouns = "STL02";
+    public const string TableCaption = "TBL01";
+    public const string TableNumbering = "TBL02";
+    public const string TableReference = "TBL03";
+    public const string TableWidth = "TBL04";
 }
