@@ -9,7 +9,8 @@ class App {
             '/api/WordingMisuse',
             '/api/CharReplacement',
             '/api/Punctuation',
-            '/api/Pronouns'
+            '/api/Pronouns',
+            '/api/Table'
         ];
 
     constructor() {

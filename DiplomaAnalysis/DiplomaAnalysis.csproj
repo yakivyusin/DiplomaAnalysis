@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <AzureFunctionsVersion>v4</AzureFunctionsVersion>
@@ -22,6 +22,7 @@
     <ProjectReference Include="..\DiplomaAnalysis.Services.Punctuation\DiplomaAnalysis.Services.Punctuation.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.References\DiplomaAnalysis.Services.References.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.Runglish\DiplomaAnalysis.Services.Runglish.csproj" />
+    <ProjectReference Include="..\DiplomaAnalysis.Services.Table\DiplomaAnalysis.Services.Table.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.WordingMisuse\DiplomaAnalysis.Services.WordingMisuse.csproj" />
   </ItemGroup>
   <ItemGroup>
