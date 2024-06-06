@@ -64,6 +64,11 @@ public static class WordExtensions
 
     public static OpenXmlElement TakePreviousSiblingWhile(this OpenXmlElement element, Func<OpenXmlElement, bool> predicate)
     {
+        if (element == null)
+        {
+            return null;
+        }
+
         var sibling = element.PreviousSibling();
 
         while (sibling != null && predicate(sibling))
