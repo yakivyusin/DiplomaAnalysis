@@ -41,6 +41,17 @@ public class TableService : IAnalysisService
                 .Insert(0, Environment.NewLine)
                 .Insert(0, sibling?.PreviousSibling()?.InnerText ?? string.Empty)
                 .ToString();
+            var shortSiblingsText = siblingsText[Math.Max(0, siblingsText.Length - 50)..];
+
+            if (!IsTableFullWidth(table))
+            {
+                result.Add(new()
+                {
+                    Code = AnalysisCode.TableWidth,
+                    IsError = true,
+                    ExtraMessage = shortSiblingsText
+                });
+            }
 
             var captionMatch = _captionRegex.Match(siblingsText);
 
@@ -50,7 +61,7 @@ public class TableService : IAnalysisService
                 {
                     Code = AnalysisCode.TableCaption,
                     IsError = true,
-                    ExtraMessage = siblingsText[Math.Max(0, siblingsText.Length - 50)..]
+                    ExtraMessage = shortSiblingsText
                 });
 
                 continue;
@@ -60,6 +71,34 @@ public class TableService : IAnalysisService
         }
 
         return result;
+    }
+
+    private bool IsTableFullWidth(WordTable table)
+    {
+        var tableLayout = table.Descendants<TableLayout>().FirstOrDefault();
+        var tableWidth = table.Descendants<TableWidth>().FirstOrDefault();
+
+        if ((tableLayout?.Type ?? TableLayoutValues.Autofit) == TableLayoutValues.Autofit &&
+            (tableWidth?.Type ?? TableWidthUnitValues.Auto) == TableWidthUnitValues.Auto)
+        {
+            return true;
+        }
+
+        if (tableWidth?.Type == TableWidthUnitValues.Dxa)
+        {
+            var sectionPropertiesContainer = table.TakeNextSiblingWhile(x => x is not SectionProperties && !x.Descendants<SectionProperties>().Any());
+            var pageSize = sectionPropertiesContainer.Descendants<PageSize>().FirstOrDefault();
+            var pageMargin = sectionPropertiesContainer.Descendants<PageMargin>().FirstOrDefault();
+
+            return Math.Abs(pageSize.Width - pageMargin.Left - pageMargin.Right - int.Parse(tableWidth.Width)) < 20;
+        }
+
+        if (tableWidth?.Type == TableWidthUnitValues.Pct)
+        {
+            return Math.Abs(int.Parse(tableWidth.Width) - 5000) < 20;
+        }
+
+        return true;
     }
 
     private IEnumerable<MessageDto> AnalyzeTableWithStartingCaption(Match captionMatch, OpenXmlElement captionStartElement, List<(int chapter, int order)> previousTables)

@@ -62,32 +62,29 @@ public static class WordExtensions
         return settingElement;
     }
 
-    public static OpenXmlElement TakePreviousSiblingWhile(this OpenXmlElement element, Func<OpenXmlElement, bool> predicate)
+    public static OpenXmlElement TakePreviousSiblingWhile(this OpenXmlElement element, Func<OpenXmlElement, bool> predicate) =>
+        element.TakeElementFromCurrentWhile(x => x.PreviousSibling(), predicate);
+
+    public static OpenXmlElement TakeNextSiblingWhile(this OpenXmlElement element, Func<OpenXmlElement, bool> predicate) =>
+        element.TakeElementFromCurrentWhile(x => x.NextSibling(), predicate);
+
+    public static OpenXmlElement TakeParentWhile(this OpenXmlElement element, Func<OpenXmlElement, bool> predicate) =>
+        element.TakeElementFromCurrentWhile(x => x.Parent, predicate);
+
+    private static OpenXmlElement TakeElementFromCurrentWhile(this OpenXmlElement element, Func<OpenXmlElement, OpenXmlElement> nextFunc, Func<OpenXmlElement, bool> predicate)
     {
         if (element == null)
         {
             return null;
         }
 
-        var sibling = element.PreviousSibling();
+        var next = nextFunc(element);
 
-        while (sibling != null && predicate(sibling))
+        while (next != null && predicate(next))
         {
-            sibling = sibling.PreviousSibling();
+            next = nextFunc(next);
         }
 
-        return sibling;
-    }
-
-    public static OpenXmlElement TakeParentWhile(this OpenXmlElement element, Func<OpenXmlElement, bool> predicate)
-    {
-        var parent = element.Parent;
-
-        while (parent != null && predicate(parent))
-        {
-            parent = parent.Parent;
-        }
-
-        return parent;
+        return next;
     }
 }
