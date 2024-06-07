@@ -17,7 +17,7 @@ namespace DiplomaAnalysis.Services.Table;
 public class TableService : IAnalysisService
 {
     private const string TableReferencePattern = @"(?i)табл(\.|иці)[ \xa0]{0}.{1}";
-    private static readonly Regex _captionRegex = new(@"(?is)(^Таблиця\s(?<chapter>\d+)\.(?<order>\d+).+\w+$|Продовження\sтабл\.\s(?<chapter>\d+)\.(?<order>\d+)$)", RegexOptions.Compiled);
+    private static readonly Regex _captionRegex = new(@"(?is)(^Таблиця\s(?<chapter>\d+)\.(?<order>\d+).+\S+$|Продовження\sтабл\.\s(?<chapter>\d+)\.(?<order>\d+)$)", RegexOptions.Compiled);
     private readonly WordprocessingDocument _document;
 
     public TableService(Stream data)
