@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DiplomaAnalysis.Common.Contracts\DiplomaAnalysis.Common.Contracts.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.CharReplacement\DiplomaAnalysis.Services.CharReplacement.csproj" />
+    <ProjectReference Include="..\DiplomaAnalysis.Services.Image\DiplomaAnalysis.Services.Image.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.Layout\DiplomaAnalysis.Services.Layout.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.Orthography2019\DiplomaAnalysis.Services.Orthography2019.csproj" />
     <ProjectReference Include="..\DiplomaAnalysis.Services.Pronouns\DiplomaAnalysis.Services.Pronouns.csproj" />
