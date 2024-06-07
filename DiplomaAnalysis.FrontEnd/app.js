@@ -10,7 +10,8 @@ class App {
             '/api/CharReplacement',
             '/api/Punctuation',
             '/api/Pronouns',
-            '/api/Table'
+            '/api/Table',
+            '/api/Image'
         ];
 
     constructor() {
