@@ -103,13 +103,15 @@ public class TableService : IAnalysisService
 
     private bool IsTableSuitableForAnalysis(WordTable table)
     {
+        static bool IsVisibleBorder(EnumValue<BorderValues> value) => value != BorderValues.None && value != BorderValues.Nil;
+
         var tableBorders = table.GetSettingFromPropertiesOrStyle<TableBorders>(x => x.Descendants<TableStyle>().FirstOrDefault()?.Val);
 
         return tableBorders != null &&
-            tableBorders.TopBorder?.Val != BorderValues.None &&
-            tableBorders.BottomBorder?.Val != BorderValues.None &&
-            tableBorders.LeftBorder?.Val != BorderValues.None &&
-            tableBorders.RightBorder?.Val != BorderValues.None;
+            IsVisibleBorder(tableBorders.TopBorder?.Val) &&
+            IsVisibleBorder(tableBorders.BottomBorder?.Val) &&
+            IsVisibleBorder(tableBorders.LeftBorder?.Val) &&
+            IsVisibleBorder(tableBorders.RightBorder?.Val);
     }
 
     public void Dispose()
