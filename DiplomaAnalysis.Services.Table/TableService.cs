@@ -28,6 +28,7 @@ public class TableService : IAnalysisService
     public IReadOnlyCollection<MessageDto> Analyze()
     {
         var result = new List<MessageDto>();
+        var numbering = new List<(int, int)>();
         var documentTables = _document.MainDocumentPart
             .Document
             .Body
@@ -45,7 +46,7 @@ public class TableService : IAnalysisService
 
             if (captionMatch == Match.Empty)
             {
-                result.Add(new MessageDto
+                result.Add(new()
                 {
                     Code = AnalysisCode.TableCaption,
                     IsError = true,
@@ -55,13 +56,13 @@ public class TableService : IAnalysisService
                 continue;
             }
 
-            result.AddRange(AnalyzeTableWithStartingCaption(captionMatch, sibling.PreviousSibling()));
+            result.AddRange(AnalyzeTableWithStartingCaption(captionMatch, sibling.PreviousSibling(), numbering));
         }
 
         return result;
     }
 
-    private IEnumerable<MessageDto> AnalyzeTableWithStartingCaption(Match captionMatch, OpenXmlElement captionStartElement)
+    private IEnumerable<MessageDto> AnalyzeTableWithStartingCaption(Match captionMatch, OpenXmlElement captionStartElement, List<(int chapter, int order)> previousTables)
     {
         if (!captionMatch.Value.StartsWith("Т", StringComparison.InvariantCultureIgnoreCase))
         {
@@ -76,13 +77,28 @@ public class TableService : IAnalysisService
 
         if (referenceParagraph == null)
         {
-            yield return new MessageDto
+            yield return new()
             {
                 Code = AnalysisCode.TableReference,
                 IsError = true,
                 ExtraMessage = captionMatch.Value
             };
         }
+
+        var previousChapterTables = previousTables.Where(x => x.chapter == chapterNumber);
+
+        if ((orderNumber != 1 && !previousChapterTables.Any(x => x.order == orderNumber - 1)) ||
+            previousChapterTables.Any(x => x.order == orderNumber))
+        {
+            yield return new()
+            {
+                Code = AnalysisCode.TableNumbering,
+                IsError = true,
+                ExtraMessage = captionMatch.Value
+            };
+        }
+
+        previousTables.Add((chapterNumber, orderNumber));
     }
 
     private bool IsTableSuitableForAnalysis(WordTable table)
