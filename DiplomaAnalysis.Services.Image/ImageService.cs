@@ -93,13 +93,13 @@ public class ImageService : IAnalysisService
         static StringValue GetParagraphStyleId(OpenXmlElement element) => element.Descendants<ParagraphStyleId>().FirstOrDefault()?.Val;
 
         var indentation = paragraph.GetSettingFromPropertiesOrStyle<Indentation>(GetParagraphStyleId) ?? new Indentation();
-        var justification = paragraph.GetSettingFromPropertiesOrStyle<Justification>(GetParagraphStyleId) ?? new Justification();
+        var justification = paragraph.GetSettingFromPropertiesOrStyle<Justification>(GetParagraphStyleId) ?? new Justification { Val = JustificationValues.Start };
 
         return justification.Val == JustificationValues.Center &&
-            string.IsNullOrEmpty(indentation.FirstLine) &&
-            string.IsNullOrEmpty(indentation.Left) &&
-            string.IsNullOrEmpty(indentation.Right) &&
-            string.IsNullOrEmpty(indentation.Hanging);
+            (string.IsNullOrEmpty(indentation.FirstLine) || int.Parse(indentation.FirstLine) <= 10) &&
+            (string.IsNullOrEmpty(indentation.Left) || int.Parse(indentation.Left) <= 10) &&
+            (string.IsNullOrEmpty(indentation.Right) || int.Parse(indentation.Right) <= 10) &&
+            (string.IsNullOrEmpty(indentation.Hanging) || int.Parse(indentation.Hanging) <= 10);
     }
 
     public void Dispose()
