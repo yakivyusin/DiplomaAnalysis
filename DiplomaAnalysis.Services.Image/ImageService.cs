@@ -15,6 +15,7 @@ namespace DiplomaAnalysis.Services.Image;
 
 public class ImageService : IAnalysisService
 {
+    private const string ImageReferencePattern = @"(?i)рис(\.|унок|унку)[ \xa0]{0}.{1}";
     private static readonly Regex _captionRegex = new(@"^Рис\.\s(?<chapter>\d+)\.(?<order>\d+)\.\s\S+", RegexOptions.Compiled);
     private readonly WordprocessingDocument _document;
 
@@ -98,6 +99,22 @@ public class ImageService : IAnalysisService
             };
 
             yield break;
+        }
+
+        var chapterNumber = int.Parse(captionMatch.Groups["chapter"].Value);
+        var orderNumber = int.Parse(captionMatch.Groups["order"].Value);
+
+        var referenceRegex = new Regex(string.Format(ImageReferencePattern, chapterNumber, orderNumber));
+        var referenceParagraph = containingParagraph.TakePreviousSiblingWhile(x => !referenceRegex.IsMatch(x.InnerText));
+
+        if (referenceParagraph == null)
+        {
+            yield return new()
+            {
+                Code = AnalysisCode.ImageReference,
+                IsError = true,
+                ExtraMessage = followingText
+            };
         }
     }
  
