@@ -27,6 +27,7 @@ public class ImageService : IAnalysisService
     public IReadOnlyCollection<MessageDto> Analyze()
     {
         var result = new List<MessageDto>();
+        var numbering = new List<(int, int)>();
         var images = _document.MainDocumentPart
             .Document
             .Body
@@ -37,7 +38,7 @@ public class ImageService : IAnalysisService
             var containingParagraph = image.Ancestors<Paragraph>().FirstOrDefault();
             var captionCandidateParagraph = containingParagraph.TakeNextSiblingWhile(x => string.IsNullOrEmpty(x.InnerText));
 
-            result.AddRange(AnalyzeCaption(containingParagraph, captionCandidateParagraph));
+            result.AddRange(AnalyzeCaption(containingParagraph, captionCandidateParagraph, numbering));
             result.AddRange(AnalyzeFormatting(image, containingParagraph, captionCandidateParagraph));
         }
 
@@ -82,7 +83,7 @@ public class ImageService : IAnalysisService
         }
     }
 
-    private IEnumerable<MessageDto> AnalyzeCaption(OpenXmlElement containingParagraph, OpenXmlElement followingParagraph)
+    private IEnumerable<MessageDto> AnalyzeCaption(OpenXmlElement containingParagraph, OpenXmlElement followingParagraph, List<(int chapter, int order)> numbering)
     {
         var followingText = followingParagraph?.InnerText ?? string.Empty;
         followingText = followingText[0..Math.Min(50, followingText.Length)];
@@ -116,6 +117,21 @@ public class ImageService : IAnalysisService
                 ExtraMessage = followingText
             };
         }
+
+        var chapterNumbering = numbering.Where(x => x.chapter == chapterNumber);
+
+        if ((orderNumber != 1 && !chapterNumbering.Any(x => x.order == orderNumber - 1)) ||
+            chapterNumbering.Any(x => x.order == orderNumber))
+        {
+            yield return new()
+            {
+                Code = AnalysisCode.ImageNumbering,
+                IsError = true,
+                ExtraMessage = captionMatch.Value
+            };
+        }
+
+        numbering.Add((chapterNumber, orderNumber));
     }
  
     private bool HasImageCorrectMaxWidth(Drawing image, OpenXmlElement containingParagraph)
