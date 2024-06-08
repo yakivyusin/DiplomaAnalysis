@@ -31,21 +31,51 @@ public class ImageService : IAnalysisService
 
         foreach (var image in images)
         {
-            var containingParagraph = image.TakeParentWhile(x => x is not Paragraph);
+            var containingParagraph = image.Ancestors<Paragraph>().FirstOrDefault();
             var captionCandidateParagraph = containingParagraph.TakeNextSiblingWhile(x => string.IsNullOrEmpty(x.InnerText));
 
-            if (!HasImageCorrectMaxWidth(image, containingParagraph))
-            {
-                result.Add(new()
-                {
-                    Code = AnalysisCode.ImageWidth,
-                    IsError = true,
-                    ExtraMessage = captionCandidateParagraph?.InnerText ?? string.Empty
-                });
-            }
+            result.AddRange(AnalyzeFormatting(image, containingParagraph, captionCandidateParagraph));
         }
 
         return result;
+    }
+
+    private IEnumerable<MessageDto> AnalyzeFormatting(Drawing image, OpenXmlElement containingParagraph, OpenXmlElement followingParagraph)
+    {
+        var followingText = followingParagraph?.InnerText ?? string.Empty;
+        followingText = followingText[0..Math.Min(50, followingText.Length)];
+
+        if (!HasImageCorrectMaxWidth(image, containingParagraph))
+        {
+            yield return new()
+            {
+                Code = AnalysisCode.ImageWidth,
+                IsError = true,
+                ExtraMessage = followingText
+            };
+        }
+
+        var isImageFormattingCorrect = HasParagraphCorrectFormatting(containingParagraph);
+
+        if (!isImageFormattingCorrect)
+        {
+            yield return new()
+            {
+                Code = AnalysisCode.ImageOrCaptionFormatting,
+                IsError = true,
+                ExtraMessage = followingText
+            };
+        }
+
+        if (followingParagraph != null && isImageFormattingCorrect && !HasParagraphCorrectFormatting(followingParagraph))
+        {
+            yield return new()
+            {
+                Code = AnalysisCode.ImageOrCaptionFormatting,
+                IsError = true,
+                ExtraMessage = followingText
+            };
+        }
     }
 
     private bool HasImageCorrectMaxWidth(Drawing image, OpenXmlElement containingParagraph)
@@ -56,6 +86,20 @@ public class ImageService : IAnalysisService
         var imageSize = image.Descendants<Extent>().FirstOrDefault();
 
         return (imageSize.Cx / 635) - pageSize.Width + pageMargin.Left + pageMargin.Right <= 10;
+    }
+
+    private bool HasParagraphCorrectFormatting(OpenXmlElement paragraph)
+    {
+        static StringValue GetParagraphStyleId(OpenXmlElement element) => element.Descendants<ParagraphStyleId>().FirstOrDefault()?.Val;
+
+        var indentation = paragraph.GetSettingFromPropertiesOrStyle<Indentation>(GetParagraphStyleId) ?? new Indentation();
+        var justification = paragraph.GetSettingFromPropertiesOrStyle<Justification>(GetParagraphStyleId) ?? new Justification();
+
+        return justification.Val == JustificationValues.Center &&
+            string.IsNullOrEmpty(indentation.FirstLine) &&
+            string.IsNullOrEmpty(indentation.Left) &&
+            string.IsNullOrEmpty(indentation.Right) &&
+            string.IsNullOrEmpty(indentation.Hanging);
     }
 
     public void Dispose()

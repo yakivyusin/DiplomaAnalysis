@@ -53,10 +53,23 @@ public static class WordExtensions
 
         if (styleId != null)
         {
-            var document = (Document)element.TakeParentWhile(x => x is not Document);
+            var document = element.Ancestors<Document>().First();
             var styles = document.MainDocumentPart.StyleDefinitionsPart.Styles.OfType<Style>();
 
             settingElement = styles.FirstOrDefault(x => x.StyleId == styleId)?.Descendants<T>().FirstOrDefault();
+        }
+        else
+        {
+            var document = element.Ancestors<Document>().First();
+
+            settingElement = document
+                .MainDocumentPart
+                .StyleDefinitionsPart
+                .Styles
+                .OfType<Style>()
+                .FirstOrDefault(x => x.StyleName.Val == "Normal")
+                ?.Descendants<T>()
+                .FirstOrDefault();
         }
 
         return settingElement;

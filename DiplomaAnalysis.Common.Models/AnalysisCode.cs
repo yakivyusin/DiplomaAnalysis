@@ -19,4 +19,5 @@ public static class AnalysisCode
     public const string TableReference = "TBL03";
     public const string TableWidth = "TBL04";
     public const string ImageWidth = "IMG04";
+    public const string ImageOrCaptionFormatting = "IMG05";
 }
