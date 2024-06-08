@@ -9,11 +9,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace DiplomaAnalysis.Services.Image;
 
 public class ImageService : IAnalysisService
 {
+    private static readonly Regex _captionRegex = new(@"^Рис\.\s(?<chapter>\d+)\.(?<order>\d+)\.\s\S+", RegexOptions.Compiled);
     private readonly WordprocessingDocument _document;
 
     public ImageService(Stream data)
@@ -34,6 +36,7 @@ public class ImageService : IAnalysisService
             var containingParagraph = image.Ancestors<Paragraph>().FirstOrDefault();
             var captionCandidateParagraph = containingParagraph.TakeNextSiblingWhile(x => string.IsNullOrEmpty(x.InnerText));
 
+            result.AddRange(AnalyzeCaption(containingParagraph, captionCandidateParagraph));
             result.AddRange(AnalyzeFormatting(image, containingParagraph, captionCandidateParagraph));
         }
 
@@ -78,6 +81,26 @@ public class ImageService : IAnalysisService
         }
     }
 
+    private IEnumerable<MessageDto> AnalyzeCaption(OpenXmlElement containingParagraph, OpenXmlElement followingParagraph)
+    {
+        var followingText = followingParagraph?.InnerText ?? string.Empty;
+        followingText = followingText[0..Math.Min(50, followingText.Length)];
+
+        var captionMatch = _captionRegex.Match(followingParagraph?.InnerText ?? string.Empty);
+
+        if (captionMatch == Match.Empty)
+        {
+            yield return new()
+            {
+                Code = AnalysisCode.ImageCaption,
+                IsError = true,
+                ExtraMessage = followingText
+            };
+
+            yield break;
+        }
+    }
+ 
     private bool HasImageCorrectMaxWidth(Drawing image, OpenXmlElement containingParagraph)
     {
         var sectionPropertiesContainer = containingParagraph.TakeNextSiblingWhile(x => x is not SectionProperties && !x.Descendants<SectionProperties>().Any());
