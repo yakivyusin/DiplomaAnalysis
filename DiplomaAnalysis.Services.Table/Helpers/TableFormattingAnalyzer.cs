@@ -1,5 +1,6 @@
 ﻿using DiplomaAnalysis.Common.Extensions;
 using DiplomaAnalysis.Common.Models;
+using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Collections.Generic;
@@ -29,8 +30,10 @@ internal class TableFormattingAnalyzer
 
     private static bool IsTableFullWidth(WordTable table)
     {
-        var tableLayout = table.Descendants<TableLayout>().FirstOrDefault();
-        var tableWidth = table.Descendants<TableWidth>().FirstOrDefault();
+        static StringValue GetTableStyleId(OpenXmlElement element) => element.Descendants<TableStyle>().FirstOrDefault()?.Val;
+
+        var tableLayout = table.GetSettingFromPropertiesOrStyle<TableLayout>(GetTableStyleId);
+        var tableWidth = table.GetSettingFromPropertiesOrStyle<TableWidth>(GetTableStyleId);
 
         if ((tableLayout?.Type ?? TableLayoutValues.Autofit) == TableLayoutValues.Autofit &&
             (tableWidth?.Type ?? TableWidthUnitValues.Auto) == TableWidthUnitValues.Auto)

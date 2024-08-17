@@ -80,4 +80,22 @@ public class SyntheticDataTests
 
         Assert.Equal(messagesCount, res.Length);
     }
+
+    [Theory]
+    [InlineData("2.docx", 5)]
+    public async void Table(string fileName, int messagesCount)
+    {
+        var res = await _analysisServiceClient.GetAnalysisResult(fileName);
+
+        Assert.Equal(messagesCount, res.Length);
+    }
+
+    [Theory]
+    [InlineData("3.docx", 7)]
+    public async void Image(string fileName, int messagesCount)
+    {
+        var res = await _analysisServiceClient.GetAnalysisResult(fileName);
+
+        Assert.Equal(messagesCount, res.Length);
+    }
 }
