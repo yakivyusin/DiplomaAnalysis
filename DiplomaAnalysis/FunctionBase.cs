@@ -28,9 +28,9 @@ public abstract class FunctionBase
 
             return new OkObjectResult(result);
         }
-        catch
+        catch (Exception e)
         {
-            _logger.LogWarning("Incoming file parsing error");
+            _logger.LogError(e, "Incoming file parsing error");
 
             return new BadRequestResult();
         }

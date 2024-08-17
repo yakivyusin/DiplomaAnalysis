@@ -47,6 +47,8 @@ public class SyntheticDataTests
 
     [Theory]
     [InlineData("1.docx", 1)]
+    [InlineData("4.docx", 0)]
+    [InlineData("5.docx", 1)]
     public async void References(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
