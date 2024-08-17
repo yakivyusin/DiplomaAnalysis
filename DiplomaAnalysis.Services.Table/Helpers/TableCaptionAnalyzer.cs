@@ -11,8 +11,8 @@ namespace DiplomaAnalysis.Services.Table.Helpers;
 
 internal class TableCaptionAnalyzer
 {
-    private const string TableReferencePattern = @"(?i)табл(\.|иці)[ \xa0]{0}.{1}";
-    private const string TableStartPattern = @"(?i)Таблиця {0}.{1}";
+    private const string TableReferencePattern = @"(?i)табл(\.|иці)[ \xa0]{0}\.{1}";
+    private const string TableStartPattern = @"(?i)Таблиця {0}\.{1}";
     private static readonly Regex _captionRegex = new(@"(?is)(^Таблиця\s(?<chapter>\d+)\.(?<order>\d+).+\S+$|Продовження\sтабл\.\s(?<chapter>\d+)\.(?<order>\d+)$)", RegexOptions.Compiled);
 
     public IEnumerable<MessageDto> Analyze(WordTable table)

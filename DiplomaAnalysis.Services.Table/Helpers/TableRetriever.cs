@@ -10,14 +10,11 @@ namespace DiplomaAnalysis.Services.Table.Helpers;
 
 internal class TableRetriever
 {
-    public IEnumerable<WordTable> RetrieveTables(WordprocessingDocument document)
-    {
-        return document.MainDocumentPart
-            .Document
-            .Body
-            .OfType<WordTable>()
-            .Where(IsTableSuitableForAnalysis);
-    }
+    public IEnumerable<WordTable> RetrieveTables(WordprocessingDocument document) => document.MainDocumentPart
+        .Document
+        .Body
+        .OfType<WordTable>()
+        .Where(IsTableSuitableForAnalysis);
 
     private static bool IsTableSuitableForAnalysis(WordTable table)
     {
