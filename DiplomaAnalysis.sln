@@ -38,6 +38,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Integration
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Services.Pronouns", "DiplomaAnalysis.Services.Pronouns\DiplomaAnalysis.Services.Pronouns.csproj", "{9196FC42-D41C-474E-8BAE-60BC1B18E22B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Services.Table", "DiplomaAnalysis.Services.Table\DiplomaAnalysis.Services.Table.csproj", "{8701F3F5-F47B-4084-A564-E4B75A30094B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomaAnalysis.Services.Image", "DiplomaAnalysis.Services.Image\DiplomaAnalysis.Services.Image.csproj", "{D85B010D-1620-49CE-BCF2-FCEA77430552}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +100,14 @@ Global
 		{9196FC42-D41C-474E-8BAE-60BC1B18E22B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9196FC42-D41C-474E-8BAE-60BC1B18E22B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9196FC42-D41C-474E-8BAE-60BC1B18E22B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8701F3F5-F47B-4084-A564-E4B75A30094B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8701F3F5-F47B-4084-A564-E4B75A30094B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8701F3F5-F47B-4084-A564-E4B75A30094B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8701F3F5-F47B-4084-A564-E4B75A30094B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D85B010D-1620-49CE-BCF2-FCEA77430552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D85B010D-1620-49CE-BCF2-FCEA77430552}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D85B010D-1620-49CE-BCF2-FCEA77430552}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D85B010D-1620-49CE-BCF2-FCEA77430552}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -66,6 +66,7 @@ body {
 
 .result-ticket .extra {
     font-style: italic;
+    overflow-wrap: anywhere;
 }
 
 #download-button {

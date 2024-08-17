@@ -47,6 +47,8 @@ public class SyntheticDataTests
 
     [Theory]
     [InlineData("1.docx", 1)]
+    [InlineData("4.docx", 0)]
+    [InlineData("5.docx", 1)]
     public async void References(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -75,6 +77,24 @@ public class SyntheticDataTests
     [Theory]
     [InlineData("1.docx", 6)]
     public async void Pronouns(string fileName, int messagesCount)
+    {
+        var res = await _analysisServiceClient.GetAnalysisResult(fileName);
+
+        Assert.Equal(messagesCount, res.Length);
+    }
+
+    [Theory]
+    [InlineData("2.docx", 5)]
+    public async void Table(string fileName, int messagesCount)
+    {
+        var res = await _analysisServiceClient.GetAnalysisResult(fileName);
+
+        Assert.Equal(messagesCount, res.Length);
+    }
+
+    [Theory]
+    [InlineData("3.docx", 7)]
+    public async void Image(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
 

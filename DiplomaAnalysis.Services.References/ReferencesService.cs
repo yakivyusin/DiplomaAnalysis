@@ -1,6 +1,7 @@
 ﻿using DiplomaAnalysis.Common.Contracts;
 using DiplomaAnalysis.Common.Extensions;
 using DiplomaAnalysis.Common.Models;
+using DiplomaAnalysis.Services.References.Helpers;
 using DocumentFormat.OpenXml.Packaging;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,9 @@ namespace DiplomaAnalysis.Services.References;
 
 public sealed class ReferencesService : IAnalysisService
 {
-    private static readonly Regex DstuReferenceRegex = new(@"\[(\d+)\]", RegexOptions.Compiled);
     private static readonly Regex ApaReferenceRegex = new(@"\(\p{L}.+, \d{4}[a-z]?\)", RegexOptions.Compiled);
-    
+
+    private readonly DstuReferencesAnalyzer _dstuReferencesAnalyzer = new();
     private readonly WordprocessingDocument _document;
 
     public ReferencesService(Stream data)
@@ -26,17 +27,14 @@ public sealed class ReferencesService : IAnalysisService
     {
         var result = new List<MessageDto>();
 
-        var dstuReferences = _document
-            .AllParagraphs()
-            .SelectMany(x => DstuReferenceRegex.Matches(x))
-            .ToList();
+        var (areDstuReferencesExist, areDstuReferencesInCorrectOrder) = _dstuReferencesAnalyzer.Analyze(_document);
 
         var apaReferences = _document
             .AllParagraphs()
             .SelectMany(x => ApaReferenceRegex.Matches(x))
             .ToList();
 
-        if (dstuReferences.Count == 0 && apaReferences.Count == 0)
+        if (!areDstuReferencesExist && apaReferences.Count == 0)
         {
             result.Add(new()
             {
@@ -46,7 +44,7 @@ public sealed class ReferencesService : IAnalysisService
             });
         }
 
-        if (dstuReferences.Count > 0 && !AreDstuInCorrectOrder(dstuReferences))
+        if (!areDstuReferencesInCorrectOrder)
         {
             result.Add(new()
             {
@@ -57,28 +55,6 @@ public sealed class ReferencesService : IAnalysisService
         }
 
         return result;
-    }
-
-    private bool AreDstuInCorrectOrder(List<Match> dstuReferences)
-    {
-        var numbers = dstuReferences
-            .Select(x => int.Parse(x.Groups[1].Value))
-            .ToList();
-
-        if (numbers[0] != 1)
-        {
-            return false;
-        }
-
-        foreach (var (number, index) in numbers.Select((x, index) => (number: x, index)).Where(x => x.number > 1))
-        {
-            if (!numbers.Take(index).Any(x => x == number - 1))
-            {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     public void Dispose()
