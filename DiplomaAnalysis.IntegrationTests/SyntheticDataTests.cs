@@ -75,7 +75,7 @@ public class SyntheticDataTests
     }
 
     [Theory]
-    [InlineData("1.docx", 6)]
+    [InlineData("1.docx", 7)]
     public async void Pronouns(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
