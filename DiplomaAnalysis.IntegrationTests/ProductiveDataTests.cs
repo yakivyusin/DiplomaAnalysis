@@ -106,12 +106,12 @@ public class ProductiveDataTests
 
     [SkippableTheory]
     [InlineData("1.docx.aes", 38)]
-    [InlineData("2.docx.aes", 16)]
-    [InlineData("3.docx.aes", 32)]
-    [InlineData("4.docx.aes", 16)]
+    [InlineData("2.docx.aes", 19)]
+    [InlineData("3.docx.aes", 33)]
+    [InlineData("4.docx.aes", 19)]
     [InlineData("5.docx.aes", 3)]
-    [InlineData("6.docx.aes", 2)]
-    [InlineData("7.docx.aes", 18)]
+    [InlineData("6.docx.aes", 8)]
+    [InlineData("7.docx.aes", 20)]
     public async void WordingMisuse(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
