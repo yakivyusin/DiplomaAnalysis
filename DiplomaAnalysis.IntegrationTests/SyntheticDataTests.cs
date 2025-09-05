@@ -57,7 +57,7 @@ public class SyntheticDataTests
     }
 
     [Theory]
-    [InlineData("1.docx", 11)]
+    [InlineData("1.docx", 17)]
     public async void Runglish(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -75,7 +75,7 @@ public class SyntheticDataTests
     }
 
     [Theory]
-    [InlineData("1.docx", 7)]
+    [InlineData("1.docx", 8)]
     public async void Pronouns(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
