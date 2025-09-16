@@ -93,7 +93,7 @@ public class SyntheticDataTests
     }
 
     [Theory]
-    [InlineData("3.docx", 7)]
+    [InlineData("3.docx", 8)]
     public async void Image(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
