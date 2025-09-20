@@ -28,6 +28,7 @@ public sealed class PunctuationService : IAnalysisService
         new(@"\p{IsCyrillic}\s[-—]\s\P{IsCyrillic}", RegexOptions.Compiled),
         new(@"\p{IsCyrillic}[`'][яюєї]", RegexOptions.Compiled)
     ];
+    private static readonly Regex _multipleWhitespacesRegex = new(@"\s{2,}", RegexOptions.Compiled);
     private readonly WordprocessingDocument _document;
 
     public PunctuationService(Stream data)
@@ -41,6 +42,7 @@ public sealed class PunctuationService : IAnalysisService
             .Select(x => (x, AnalysisCode.PunctuationSpacing, isError: true))
             .Append((_quotesRegex, AnalysisCode.Quotes, isError: false))
             .Concat(_typographicRegexes.Select(x => (x, AnalysisCode.Typographical, isError: true)))
+            .Append((_multipleWhitespacesRegex, AnalysisCode.MultipleWhitespaces, isError: true))
             .SelectMany(x => Analyze(_document.AllParagraphs(), x))
             .ToList()
             .AsReadOnly();
