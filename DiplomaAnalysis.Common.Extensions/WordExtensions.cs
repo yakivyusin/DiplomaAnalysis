@@ -17,16 +17,27 @@ public static class WordExtensions
             .MainDocumentPart
             .Document
             .Descendants<Paragraph>()
-            .Select(x => GetParagraphText(x))
+            .Select(GetParagraphText)
             .Where(x => x.Length > 0);
     }
 
     private static string GetParagraphText(Paragraph paragraph)
     {
         return paragraph
-            .Descendants<Text>()
+            .Descendants<Run>()
+            .Where(x => !IsSourceCode(paragraph, x))
+            .SelectMany(x => x.Descendants<Text>())
             .Aggregate(new StringBuilder(), (builder, text) => builder.Append(text.Text))
             .ToString();
+    }
+
+    private static bool IsSourceCode(Paragraph paragraph, Run run)
+    {
+        var runFonts = run.GetSettingFromPropertiesOrStyle<RunFonts>((_) => paragraph.Descendants<ParagraphStyleId>().FirstOrDefault()?.Val);
+
+        return runFonts != null &&
+            (runFonts.Ascii == "Courier New" || runFonts.Ascii == "Consolas" ||
+             runFonts.HighAnsi == "Courier New" || runFonts.HighAnsi == "Consolas");
     }
 
     public static T ValueSafe<T>(this OpenXmlSimpleValue<T> value) where T: struct => value switch
@@ -50,13 +61,18 @@ public static class WordExtensions
         }
 
         var styleId = styleIdSelector(element);
-
         if (styleId != null)
         {
             var document = element.Ancestors<Document>().First();
             var styles = document.MainDocumentPart.StyleDefinitionsPart.Styles.OfType<Style>();
 
-            settingElement = styles.FirstOrDefault(x => x.StyleId == styleId)?.Descendants<T>().FirstOrDefault();
+            while (styleId != null && settingElement == null)
+            {
+                var style = styles.FirstOrDefault(x => x.StyleId == styleId);
+
+                settingElement = style?.Descendants<T>().FirstOrDefault();
+                styleId = style?.BasedOn?.Val;
+            }
         }
         else
         {

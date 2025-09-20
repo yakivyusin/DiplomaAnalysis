@@ -73,16 +73,16 @@ public class ProductiveDataTests
 
     [SkippableTheory]
     [InlineData("1.docx.aes", 30)]
-    [InlineData("2.docx.aes", 67)]
-    [InlineData("3.docx.aes", 70)]
+    [InlineData("2.docx.aes", 31)]
+    [InlineData("3.docx.aes", 53)]
     [InlineData("4.docx.aes", 59)]
-    [InlineData("5.docx.aes", 158)]
-    [InlineData("6.docx.aes", 90)]
-    [InlineData("7.docx.aes", 266)]
-    [InlineData("8.docx.aes", 181)]
-    [InlineData("9.docx.aes", 653)]
+    [InlineData("5.docx.aes", 48)]
+    [InlineData("6.docx.aes", 46)]
+    [InlineData("7.docx.aes", 73)]
+    [InlineData("8.docx.aes", 10)]
+    [InlineData("9.docx.aes", 30)]
     [InlineData("10.docx.aes", 9)]
-    [InlineData("11.docx.aes", 610)]
+    [InlineData("11.docx.aes", 23)]
     public async void Punctuation(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -99,7 +99,7 @@ public class ProductiveDataTests
     [InlineData("6.docx.aes", 1)]
     [InlineData("7.docx.aes", 0)]
     [InlineData("8.docx.aes", 0)]
-    [InlineData("9.docx.aes", 1)]
+    [InlineData("9.docx.aes", 0)]
     [InlineData("10.docx.aes", 0)]
     [InlineData("11.docx.aes", 0)]
     public async void References(string fileName, int messagesCount)
