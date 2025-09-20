@@ -22,6 +22,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 1)]
     [InlineData("6.docx.aes", 0)]
     [InlineData("7.docx.aes", 0)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 0)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void CharReplacement(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -37,6 +41,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 0)]
     [InlineData("6.docx.aes", 0)]
     [InlineData("7.docx.aes", 0)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 0)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void Layout(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -52,6 +60,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 7)]
     [InlineData("6.docx.aes", 0)]
     [InlineData("7.docx.aes", 1)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 0)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void Orthography2019(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -60,13 +72,17 @@ public class ProductiveDataTests
     }
 
     [SkippableTheory]
-    [InlineData("1.docx.aes", 27)]
-    [InlineData("2.docx.aes", 23)]
-    [InlineData("3.docx.aes", 49)]
-    [InlineData("4.docx.aes", 50)]
-    [InlineData("5.docx.aes", 61)]
-    [InlineData("6.docx.aes", 29)]
-    [InlineData("7.docx.aes", 142)]
+    [InlineData("1.docx.aes", 30)]
+    [InlineData("2.docx.aes", 31)]
+    [InlineData("3.docx.aes", 53)]
+    [InlineData("4.docx.aes", 59)]
+    [InlineData("5.docx.aes", 48)]
+    [InlineData("6.docx.aes", 46)]
+    [InlineData("7.docx.aes", 73)]
+    [InlineData("8.docx.aes", 10)]
+    [InlineData("9.docx.aes", 30)]
+    [InlineData("10.docx.aes", 9)]
+    [InlineData("11.docx.aes", 23)]
     public async void Punctuation(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -82,6 +98,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 0)]
     [InlineData("6.docx.aes", 1)]
     [InlineData("7.docx.aes", 0)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 0)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void References(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -97,6 +117,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 3)]
     [InlineData("6.docx.aes", 0)]
     [InlineData("7.docx.aes", 20)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 1)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void Runglish(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -106,12 +130,16 @@ public class ProductiveDataTests
 
     [SkippableTheory]
     [InlineData("1.docx.aes", 38)]
-    [InlineData("2.docx.aes", 16)]
-    [InlineData("3.docx.aes", 32)]
-    [InlineData("4.docx.aes", 16)]
+    [InlineData("2.docx.aes", 19)]
+    [InlineData("3.docx.aes", 33)]
+    [InlineData("4.docx.aes", 19)]
     [InlineData("5.docx.aes", 3)]
-    [InlineData("6.docx.aes", 2)]
-    [InlineData("7.docx.aes", 18)]
+    [InlineData("6.docx.aes", 8)]
+    [InlineData("7.docx.aes", 20)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 0)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void WordingMisuse(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -127,6 +155,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 0)]
     [InlineData("6.docx.aes", 0)]
     [InlineData("7.docx.aes", 2)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 1)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void Pronouns(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -142,6 +174,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 0)]
     [InlineData("6.docx.aes", 0)]
     [InlineData("7.docx.aes", 0)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 1)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void Table(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -157,6 +193,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 0)]
     [InlineData("6.docx.aes", 0)]
     [InlineData("7.docx.aes", 0)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 2)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void Image(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);

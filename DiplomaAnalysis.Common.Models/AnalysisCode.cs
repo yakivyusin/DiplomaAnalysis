@@ -12,6 +12,7 @@ public static class AnalysisCode
     public const string PunctuationSpacing = "PNC01";
     public const string Quotes = "PNC02";
     public const string Typographical = "PNC03";
+    public const string MultipleWhitespaces = "PNC04";
     public const string Runglish = "STL01";
     public const string Pronouns = "STL02";
     public const string TableCaption = "TBL01";

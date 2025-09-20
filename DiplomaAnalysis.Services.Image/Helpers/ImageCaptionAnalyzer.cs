@@ -20,7 +20,6 @@ internal class ImageCaptionAnalyzer
         var followingParagraph = containingParagraph.TakeNextSiblingWhile(x => string.IsNullOrEmpty(x.InnerText));
 
         var captionMatch = _captionRegex.Match(followingParagraph?.InnerText ?? string.Empty);
-
         if (!captionMatch.Success)
         {
             yield return new()
@@ -33,6 +32,16 @@ internal class ImageCaptionAnalyzer
             yield break;
         }
 
+        if (followingParagraph.InnerText.EndsWith('.'))
+        {
+            yield return new()
+            {
+                Code = AnalysisCode.ImageCaption,
+                IsError = true,
+                ExtraMessage = followingParagraph.InnerText.TakeFirst(50)
+            };
+        }
+
         var (chapter, order) = RetrieveCaptionInfo(captionMatch);
 
         if (!HasImageReference(containingParagraph, chapter, order))
@@ -41,7 +50,7 @@ internal class ImageCaptionAnalyzer
             {
                 Code = AnalysisCode.ImageReference,
                 IsError = true,
-                ExtraMessage = followingParagraph?.InnerText.TakeFirst(50)
+                ExtraMessage = followingParagraph.InnerText.TakeFirst(50)
             };
         }
 
@@ -51,7 +60,7 @@ internal class ImageCaptionAnalyzer
             {
                 Code = AnalysisCode.ImageNumbering,
                 IsError = true,
-                ExtraMessage = followingParagraph?.InnerText.TakeFirst(50)
+                ExtraMessage = followingParagraph.InnerText.TakeFirst(50)
             };
         }
     }
