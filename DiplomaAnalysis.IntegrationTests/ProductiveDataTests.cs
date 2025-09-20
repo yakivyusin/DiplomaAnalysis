@@ -22,6 +22,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 1)]
     [InlineData("6.docx.aes", 0)]
     [InlineData("7.docx.aes", 0)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 0)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void CharReplacement(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -37,6 +41,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 0)]
     [InlineData("6.docx.aes", 0)]
     [InlineData("7.docx.aes", 0)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 0)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void Layout(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -52,6 +60,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 7)]
     [InlineData("6.docx.aes", 0)]
     [InlineData("7.docx.aes", 1)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 0)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void Orthography2019(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -67,6 +79,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 158)]
     [InlineData("6.docx.aes", 90)]
     [InlineData("7.docx.aes", 266)]
+    [InlineData("8.docx.aes", 181)]
+    [InlineData("9.docx.aes", 653)]
+    [InlineData("10.docx.aes", 9)]
+    [InlineData("11.docx.aes", 610)]
     public async void Punctuation(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -82,6 +98,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 0)]
     [InlineData("6.docx.aes", 1)]
     [InlineData("7.docx.aes", 0)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 1)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void References(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -97,6 +117,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 3)]
     [InlineData("6.docx.aes", 0)]
     [InlineData("7.docx.aes", 20)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 1)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void Runglish(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -112,6 +136,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 3)]
     [InlineData("6.docx.aes", 8)]
     [InlineData("7.docx.aes", 20)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 0)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void WordingMisuse(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -127,6 +155,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 0)]
     [InlineData("6.docx.aes", 0)]
     [InlineData("7.docx.aes", 2)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 1)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void Pronouns(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -142,6 +174,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 0)]
     [InlineData("6.docx.aes", 0)]
     [InlineData("7.docx.aes", 0)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 1)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void Table(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
@@ -157,6 +193,10 @@ public class ProductiveDataTests
     [InlineData("5.docx.aes", 0)]
     [InlineData("6.docx.aes", 0)]
     [InlineData("7.docx.aes", 0)]
+    [InlineData("8.docx.aes", 0)]
+    [InlineData("9.docx.aes", 2)]
+    [InlineData("10.docx.aes", 0)]
+    [InlineData("11.docx.aes", 0)]
     public async void Image(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
