@@ -19,7 +19,7 @@ jobs:
           sed -i 's+v.0.0.0+v.1.0.1+g' DiplomaAnalysis.FrontEnd/index.html
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.7.3
+        uses: JamesIves/github-pages-deploy-action@v4.7.4
         with:
           branch: gh-pages
           folder: DiplomaAnalysis.FrontEnd
