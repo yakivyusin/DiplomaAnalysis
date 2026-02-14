@@ -66,7 +66,7 @@ public class SyntheticDataTests
     }
 
     [Theory]
-    [InlineData("1.docx", 4)]
+    [InlineData("1.docx", 6)]
     public async void WordingMisuse(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
