@@ -116,4 +116,30 @@ public static class WordExtensions
 
         return next;
     }
+
+    public static OpenXmlElement TakePreviousSiblingUntil(this OpenXmlElement element, Func<OpenXmlElement, bool> predicate) =>
+        element.TakeElementFromCurrentUntil(x => x.PreviousSibling(), predicate);
+
+    public static OpenXmlElement TakeNextSiblingUntil(this OpenXmlElement element, Func<OpenXmlElement, bool> predicate) =>
+        element.TakeElementFromCurrentUntil(x => x.NextSibling(), predicate);
+
+    public static OpenXmlElement TakeParentUntil(this OpenXmlElement element, Func<OpenXmlElement, bool> predicate) =>
+        element.TakeElementFromCurrentUntil(x => x.Parent, predicate);
+
+    private static OpenXmlElement TakeElementFromCurrentUntil(this OpenXmlElement element, Func<OpenXmlElement, OpenXmlElement> nextFunc, Func<OpenXmlElement, bool> predicate)
+    {
+        if (element == null)
+        {
+            return null;
+        }
+
+        var next = nextFunc(element);
+
+        while (next != null && !predicate(next))
+        {
+            next = nextFunc(next);
+        }
+
+        return next;
+    }
 }

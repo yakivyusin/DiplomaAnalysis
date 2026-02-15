@@ -56,7 +56,7 @@ public sealed class LayoutService : IAnalysisService
             result.Add(new MessageDto
             {
                 Code = AnalysisCode.PageMargin,
-                IsError = false,
+                IsError = true,
                 ExtraMessage = null
             });
         }

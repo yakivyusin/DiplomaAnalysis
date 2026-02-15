@@ -11,7 +11,7 @@ namespace DiplomaAnalysis.Services.Image.Helpers;
 internal class ImageCaptionAnalyzer
 {
     private const string ImageReferencePattern = @"(?i)рис(\.|унок|унку)[ \xa0]{0}\.{1}";
-    private const string ImageStartPattern = @"(?i)Рис\. {0}\.{1}";
+    private const string ImageStartPattern = @"(?i)Рис\.\s{0}\.{1}";
     private static readonly Regex _captionRegex = new(@"^Рис\.\s(?<chapter>\d+)\.(?<order>\d+)\.\s\S+", RegexOptions.Compiled);
 
     public IEnumerable<MessageDto> Analyze(Drawing image)
