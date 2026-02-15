@@ -1,8 +1,10 @@
 ﻿using DiplomaAnalysis.Common.Extensions;
 using DiplomaAnalysis.Common.Models;
 using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using WordTable = DocumentFormat.OpenXml.Wordprocessing.Table;
@@ -37,14 +39,22 @@ internal class TableCaptionAnalyzer
             yield break;
         }
 
-        if (!captionMatch.Value.StartsWith("Т", StringComparison.InvariantCultureIgnoreCase))
+        Func<OpenXmlElement, Match, IEnumerable<MessageDto>> followingAnalysis = captionMatch.Value.StartsWith('Т') ?
+            AnalyzeTableStart :
+            AnalyzeTableContinuation;
+
+        foreach (var error in followingAnalysis(sibling, captionMatch))
         {
-            yield break;
+            yield return error;
         }
+    }
 
+    private static IEnumerable<MessageDto> AnalyzeTableStart(OpenXmlElement tablePreviousSibling, Match captionMatch)
+    {
         var (chapter, order) = RetrieveCaptionInfo(captionMatch);
+        var captionStartElement = tablePreviousSibling.PreviousSibling();
 
-        if (!HasTableReference(sibling.PreviousSibling(), chapter, order))
+        if (!HasTableReference(captionStartElement, chapter, order))
         {
             yield return new()
             {
@@ -54,13 +64,29 @@ internal class TableCaptionAnalyzer
             };
         }
 
-        if (!HasTablePredecessor(sibling.PreviousSibling(), chapter, order))
+        if (!HasTablePredecessor(captionStartElement, chapter, order))
         {
             yield return new()
             {
                 Code = AnalysisCode.TableNumbering,
                 IsError = true,
                 ExtraMessage = captionMatch.Value.TakeFirst(50)
+            };
+        }
+    }
+
+    private static IEnumerable<MessageDto> AnalyzeTableContinuation(OpenXmlElement tablePreviousSibling, Match captionMatch)
+    {
+        var (chapter, order) = RetrieveCaptionInfo(captionMatch);
+        var captionStartElement = tablePreviousSibling;
+
+        if (!HasTableStartOnPreviousPage(captionStartElement, chapter, order))
+        {
+            yield return new()
+            {
+                Code = AnalysisCode.TableContinuation,
+                IsError = true,
+                ExtraMessage = captionStartElement.InnerText.TakeFirst(50)
             };
         }
     }
@@ -85,5 +111,21 @@ internal class TableCaptionAnalyzer
         var previousNumberRegex = new Regex(string.Format(TableStartPattern, chapter, order - 1));
 
         return captionStartElement.TakePreviousSiblingWhile(x => !previousNumberRegex.IsMatch(x.InnerText)) != null;
+    }
+
+    private static bool HasTableStartOnPreviousPage(OpenXmlElement captionStartElement, int chapter, int order)
+    {
+        if (captionStartElement.Descendants<LastRenderedPageBreak>().Any())
+        {
+            return true;
+        }
+
+        var tableStartRegex = new Regex(string.Format(TableStartPattern, chapter, order));
+        var firstMatch = captionStartElement.TakePreviousSiblingUntil(x =>
+            tableStartRegex.IsMatch(x.InnerText) ||
+            x.Descendants<Break>().Any() ||
+            x.Descendants<LastRenderedPageBreak>().Any());
+
+        return firstMatch.Descendants<Break>().Any() || firstMatch.Descendants<LastRenderedPageBreak>().Any();
     }
 }
