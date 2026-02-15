@@ -84,7 +84,7 @@ public class SyntheticDataTests
     }
 
     [Theory]
-    [InlineData("2.docx", 5)]
+    [InlineData("2.docx", 6)]
     public async void Table(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
