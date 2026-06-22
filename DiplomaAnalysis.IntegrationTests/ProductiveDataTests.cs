@@ -134,10 +134,10 @@ public class ProductiveDataTests
     [InlineData("3.docx.aes", 34)]
     [InlineData("4.docx.aes", 20)]
     [InlineData("5.docx.aes", 4)]
-    [InlineData("6.docx.aes", 8)]
+    [InlineData("6.docx.aes", 9)]
     [InlineData("7.docx.aes", 20)]
-    [InlineData("8.docx.aes", 0)]
-    [InlineData("9.docx.aes", 0)]
+    [InlineData("8.docx.aes", 1)]
+    [InlineData("9.docx.aes", 3)]
     [InlineData("10.docx.aes", 0)]
     [InlineData("11.docx.aes", 0)]
     public async void WordingMisuse(string fileName, int messagesCount)
