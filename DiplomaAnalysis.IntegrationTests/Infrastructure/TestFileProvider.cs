@@ -23,7 +23,7 @@ public class TestFileProvider
         var passwordBytes = Encoding.UTF8.GetBytes(EnvironmentVariables.ProductiveDataDecryptionKey);
         var salt = new byte[32];
 
-        using var @in = new FileStream(filePath, FileMode.Open);
+        using var @in = new FileStream(filePath, FileMode.Open, FileAccess.Read);
         @in.Read(salt, 0, salt.Length);
 
         using var aes = Aes.Create();

@@ -9,95 +9,95 @@ public class SyntheticDataTests
         FileProvider = new(decryptFiles: false)
     };
 
-    [Theory]
-    [InlineData("1.docx", 1)]
-    public async void CharReplacement(string fileName, int messagesCount)
+    [Test]
+    [Arguments("1.docx", 1)]
+    public async Task CharReplacement(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
 
-        Assert.Equal(messagesCount, res.Length);
+        await Assert.That(res.Length).IsEqualTo(messagesCount);
     }
 
-    [Theory]
-    [InlineData("1.docx", 1)]
-    public async void Layout(string fileName, int messagesCount)
+    [Test]
+    [Arguments("1.docx", 1)]
+    public async Task Layout(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
 
-        Assert.Equal(messagesCount, res.Length);
+        await Assert.That(res.Length).IsEqualTo(messagesCount);
     }
 
-    [Theory]
-    [InlineData("1.docx", 3)]
-    public async void Orthography2019(string fileName, int messagesCount)
+    [Test]
+    [Arguments("1.docx", 3)]
+    public async Task Orthography2019(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
 
-        Assert.Equal(messagesCount, res.Length);
+        await Assert.That(res.Length).IsEqualTo(messagesCount);
     }
 
-    [Theory]
-    [InlineData("1.docx", 1)]
-    public async void Punctuation(string fileName, int messagesCount)
+    [Test]
+    [Arguments("1.docx", 1)]
+    public async Task Punctuation(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
 
-        Assert.Equal(messagesCount, res.Length);
+        await Assert.That(res.Length).IsEqualTo(messagesCount);
     }
 
-    [Theory]
-    [InlineData("1.docx", 1)]
-    [InlineData("4.docx", 0)]
-    [InlineData("5.docx", 1)]
-    public async void References(string fileName, int messagesCount)
+    [Test]
+    [Arguments("1.docx", 1)]
+    [Arguments("4.docx", 0)]
+    [Arguments("5.docx", 1)]
+    public async Task References(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
 
-        Assert.Equal(messagesCount, res.Length);
+        await Assert.That(res.Length).IsEqualTo(messagesCount);
     }
 
-    [Theory]
-    [InlineData("1.docx", 28)]
-    public async void Runglish(string fileName, int messagesCount)
+    [Test]
+    [Arguments("1.docx", 28)]
+    public async Task Runglish(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
 
-        Assert.Equal(messagesCount, res.Length);
+        await Assert.That(res.Length).IsEqualTo(messagesCount);
     }
 
-    [Theory]
-    [InlineData("1.docx", 6)]
-    public async void WordingMisuse(string fileName, int messagesCount)
+    [Test]
+    [Arguments("1.docx", 6)]
+    public async Task WordingMisuse(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
 
-        Assert.Equal(messagesCount, res.Length);
+        await Assert.That(res.Length).IsEqualTo(messagesCount);
     }
 
-    [Theory]
-    [InlineData("1.docx", 9)]
-    public async void Pronouns(string fileName, int messagesCount)
+    [Test]
+    [Arguments("1.docx", 9)]
+    public async Task Pronouns(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
 
-        Assert.Equal(messagesCount, res.Length);
+        await Assert.That(res.Length).IsEqualTo(messagesCount);
     }
 
-    [Theory]
-    [InlineData("2.docx", 6)]
-    public async void Table(string fileName, int messagesCount)
+    [Test]
+    [Arguments("2.docx", 6)]
+    public async Task Table(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
 
-        Assert.Equal(messagesCount, res.Length);
+        await Assert.That(res.Length).IsEqualTo(messagesCount);
     }
 
-    [Theory]
-    [InlineData("3.docx", 8)]
-    public async void Image(string fileName, int messagesCount)
+    [Test]
+    [Arguments("3.docx", 8)]
+    public async Task Image(string fileName, int messagesCount)
     {
         var res = await _analysisServiceClient.GetAnalysisResult(fileName);
 
-        Assert.Equal(messagesCount, res.Length);
+        await Assert.That(res.Length).IsEqualTo(messagesCount);
     }
 }
