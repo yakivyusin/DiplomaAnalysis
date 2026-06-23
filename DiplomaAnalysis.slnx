@@ -1,0 +1,29 @@
+<Solution>
+  <Folder Name="/DiplomaAnalysis.FrontEnd/">
+    <File Path="DiplomaAnalysis.FrontEnd/app.js" />
+    <File Path="DiplomaAnalysis.FrontEnd/index.html" />
+    <File Path="DiplomaAnalysis.FrontEnd/loader.css" />
+    <File Path="DiplomaAnalysis.FrontEnd/misuse.txt" />
+    <File Path="DiplomaAnalysis.FrontEnd/resultTicketFactory.js" />
+    <File Path="DiplomaAnalysis.FrontEnd/styles.css" />
+  </Folder>
+  <Folder Name="/Github Workflows/">
+    <File Path=".github/workflows/deploy-backend.yaml" />
+	<File Path=".github/workflows/deploy-frontend.yaml" />
+  </Folder>
+  <Project Path="DiplomaAnalysis.Common.Contracts/DiplomaAnalysis.Common.Contracts.csproj" />
+  <Project Path="DiplomaAnalysis.Common.Extensions/DiplomaAnalysis.Common.Extensions.csproj" />
+  <Project Path="DiplomaAnalysis.Common.Models/DiplomaAnalysis.Common.Models.csproj" />
+  <Project Path="DiplomaAnalysis.IntegrationTests/DiplomaAnalysis.IntegrationTests.csproj" />
+  <Project Path="DiplomaAnalysis.Services.CharReplacement/DiplomaAnalysis.Services.CharReplacement.csproj" />
+  <Project Path="DiplomaAnalysis.Services.Image/DiplomaAnalysis.Services.Image.csproj" />
+  <Project Path="DiplomaAnalysis.Services.Layout/DiplomaAnalysis.Services.Layout.csproj" />
+  <Project Path="DiplomaAnalysis.Services.Orthography2019/DiplomaAnalysis.Services.Orthography2019.csproj" />
+  <Project Path="DiplomaAnalysis.Services.Pronouns/DiplomaAnalysis.Services.Pronouns.csproj" />
+  <Project Path="DiplomaAnalysis.Services.Punctuation/DiplomaAnalysis.Services.Punctuation.csproj" />
+  <Project Path="DiplomaAnalysis.Services.References/DiplomaAnalysis.Services.References.csproj" />
+  <Project Path="DiplomaAnalysis.Services.Runglish/DiplomaAnalysis.Services.Runglish.csproj" />
+  <Project Path="DiplomaAnalysis.Services.Table/DiplomaAnalysis.Services.Table.csproj" />
+  <Project Path="DiplomaAnalysis.Services.WordingMisuse/DiplomaAnalysis.Services.WordingMisuse.csproj" />
+  <Project Path="DiplomaAnalysis/DiplomaAnalysis.csproj" />
+</Solution>
