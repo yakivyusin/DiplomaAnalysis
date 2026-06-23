@@ -25,7 +25,7 @@ public class AnalysisServiceClient
     private MultipartFormDataContent GetAnalysisPayload(string fileName)
     {
         var multipartFormContent = new MultipartFormDataContent();
-        var content = new ByteArrayContent(FileProvider.GetFile($"TestFiles\\{fileName}"));
+        var content = new ByteArrayContent(FileProvider.GetFile($"TestFiles/{fileName}"));
         content.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
 
         multipartFormContent.Add(content, name: "file", fileName: fileName);
