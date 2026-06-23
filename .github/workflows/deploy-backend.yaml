@@ -6,15 +6,15 @@ on:
 env:
   AZURE_FUNCTIONAPP_NAME: diplomaanalysis
   AZURE_FUNCTIONAPP_PACKAGE_PATH: 'DiplomaAnalysis'
-  DOTNET_VERSION: '8.0.x'
+  DOTNET_VERSION: '10.0.x'
   APPLICATION_PATH: ${{ vars.APPLICATION_PATH }}
   PRODUCTIVE_DATA_DECRYPTION_KEY: ${{ secrets.PRODUCTIVE_DATA_DECRYPTION_KEY }}
 jobs:
   build-and-deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
         uses: actions/setup-dotnet@v5
