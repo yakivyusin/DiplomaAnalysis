@@ -83,7 +83,7 @@ public static class WordExtensions
                 .StyleDefinitionsPart
                 .Styles
                 .OfType<Style>()
-                .FirstOrDefault(x => x.StyleName.Val == "Normal")
+                .FirstOrDefault(x => x.StyleName?.Val == "Normal")
                 ?.Descendants<T>()
                 .FirstOrDefault();
         }
