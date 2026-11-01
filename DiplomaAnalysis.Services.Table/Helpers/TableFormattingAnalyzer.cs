@@ -2,9 +2,7 @@
 using DiplomaAnalysis.Common.Models;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Wordprocessing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using WordTable = DocumentFormat.OpenXml.Wordprocessing.Table;
 
 namespace DiplomaAnalysis.Services.Table.Helpers;
@@ -47,12 +45,12 @@ internal class TableFormattingAnalyzer
             var pageSize = sectionPropertiesContainer.Descendants<PageSize>().FirstOrDefault();
             var pageMargin = sectionPropertiesContainer.Descendants<PageMargin>().FirstOrDefault();
 
-            return Math.Abs(pageSize.Width - pageMargin.Left - pageMargin.Right - int.Parse(tableWidth.Width)) < 20;
+            return Math.Abs(pageSize.Width - pageMargin.Left - pageMargin.Right - decimal.Parse(tableWidth.Width, CultureInfo.InvariantCulture)) < 20;
         }
 
         if (tableWidth?.Type == TableWidthUnitValues.Pct)
         {
-            return Math.Abs(int.Parse(tableWidth.Width) - 5000) < 20;
+            return Math.Abs(decimal.Parse(tableWidth.Width, CultureInfo.InvariantCulture) - 5000) < 20;
         }
 
         return true;
